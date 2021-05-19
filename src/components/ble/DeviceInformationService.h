@@ -25,7 +25,7 @@ namespace Pinetime {
       static constexpr uint16_t swRevisionId {0x2a28};
 
       static constexpr const char* manufacturerName = "PINE64";
-      static constexpr const char* modelNumber = "PineTime";
+      static constexpr const char* modelNumber = "NC Systems";
       static constexpr const char* hwRevision = "1.0.0";
       static constexpr const char* serialNumber = "0";
       static constexpr const char* fwRevision = Version::VersionString();
