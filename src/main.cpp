@@ -279,7 +279,7 @@ int main(void) {
   systemTask->Start();
   nimble_port_init();
 
-//   vTaskStartScheduler();
+  vTaskStartScheduler();
 
   for (;;) {
     APP_ERROR_HANDLER(NRF_ERROR_FORBIDDEN);
