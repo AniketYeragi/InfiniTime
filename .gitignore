@@ -9,19 +9,7 @@ CMakeFiles
 **/CMakeCache.txt
 cmake_install.cmake
 Makefile
-build
 tools
-
-# Resulting binary files
-*.a
-*.so
-*.s
-*.hex
-*.bin
-!bootloader/bootloader-5.0.4.bin
-*.map
-*.out
-pinetime*.cbp
 
 # InfiniTime's files
 core
