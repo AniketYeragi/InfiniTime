@@ -80,14 +80,14 @@ std::unique_ptr<Screen> Clock::WatchFaceAnalogScreen() {
     app, dateTimeController, batteryController, bleController, notificatioManager, settingsController);
 }
 
-
+/*
 // Examples for more watch faces 
 std::unique_ptr<Screen> Clock::WatchFaceMinimalScreen() {
   return std::make_unique<Screens::WatchFaceMinimal>(app, dateTimeController, batteryController, bleController, notificatioManager,
 settingsController);
 }
 
-/*
+
 std::unique_ptr<Screen> Clock::WatchFaceCustomScreen() {
   return std::make_unique<Screens::WatchFaceCustom>(app, dateTimeController, batteryController, bleController, notificatioManager,
 settingsController);
