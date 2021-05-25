@@ -13,7 +13,7 @@
 #define LV_ATTRIBUTE_IMG_BG_CLOCK
 #endif
 
-const LV_ATTRIBUTE_MEM_ALIGN LV_ATTRIBUTE_LARGE_CONST LV_ATTRIBUTE_IMG_BG_CLOCK uint8_t bg_clock_map[] = {
+const LV_ATTRIBUTE_MEM_ALIGN LV_ATTRIBUTE_LARGE_CONST LV_ATTRIBUTE_IMG_BG_CLOCK uint8_t bg_clock_map_e[] = {
   0x05, 0x03, 0x04, 0xff, 	/*Color of index 0*/
   0xa1, 0x98, 0x06, 0xff, 	/*Color of index 1*/
   0x48, 0x46, 0x3e, 0xff, 	/*Color of index 2*/
@@ -279,6 +279,6 @@ const lv_img_dsc_t bg_clock_eldat = {
   .header.h = 240,
   .data_size = 28864,
   .header.cf = LV_IMG_CF_INDEXED_4BIT,
-  .data = bg_clock_map,
+  .data = bg_clock_map_e,
 };
 
