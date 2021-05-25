@@ -7,7 +7,7 @@
 
 #include <cmath>
 
-LV_IMG_DECLARE(bg_clock);
+LV_IMG_DECLARE(bg_clock_eldat);
 
 using namespace Pinetime::Applications::Screens;
 
