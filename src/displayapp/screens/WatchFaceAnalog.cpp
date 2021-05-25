@@ -46,7 +46,7 @@ WatchFaceAnalog::WatchFaceAnalog(Pinetime::Applications::DisplayApp* app,
   sSecond = 99;
 
   lv_obj_t* bg_clock_img = lv_img_create(lv_scr_act(), NULL);
-  lv_img_set_src(bg_clock_img, &bg_clock);
+  lv_img_set_src(bg_clock_img, &bg_clock_eldat);
   lv_obj_align(bg_clock_img, NULL, LV_ALIGN_CENTER, 0, 0);
 
   batteryIcon = lv_label_create(lv_scr_act(), nullptr);
@@ -64,7 +64,7 @@ WatchFaceAnalog::WatchFaceAnalog(Pinetime::Applications::DisplayApp* app,
   lv_obj_set_style_local_text_color(label_date_day, LV_LABEL_PART_MAIN, LV_STATE_DEFAULT, lv_color_hex(0xf0a500));
   lv_label_set_text_fmt(label_date_day, "%s\n%02i", dateTimeController.DayOfWeekShortToString(), dateTimeController.Day());
   lv_label_set_align(label_date_day, LV_LABEL_ALIGN_CENTER);
-  lv_obj_align(label_date_day, NULL, LV_ALIGN_CENTER, -2, -50);
+  lv_obj_align(label_date_day, NULL, LV_ALIGN_CENTER, -1, -50);
 
   minute_body = lv_line_create(lv_scr_act(), NULL);
   minute_body_trace = lv_line_create(lv_scr_act(), NULL);
