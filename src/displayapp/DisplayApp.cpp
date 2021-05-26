@@ -14,6 +14,7 @@
 #include "displayapp/screens/FirmwareUpdate.h"
 #include "displayapp/screens/FirmwareValidation.h"
 #include "displayapp/screens/InfiniPaint.h"
+#include "displayapp/screens/FallDetection.h"
 #include "displayapp/screens/Paddle.h"
 #include "displayapp/screens/StopWatch.h"
 #include "displayapp/screens/Meter.h"
@@ -336,6 +337,9 @@ void DisplayApp::LoadApp(Apps app, DisplayApp::FullRefreshDirections direction) 
       break;
     case Apps::Steps: 
       currentScreen = std::make_unique<Screens::Steps>(this, motionController, settingsController);
+      break;
+    case Apps::FallDetection:
+      currentScreen = std::make_unique<Screens::FallDetection>(this);
       break;
   }
   currentApp = app;
