@@ -73,7 +73,7 @@ namespace Pinetime {
 
     private:
       static constexpr const char* deviceName = "GEMTEC";
-      static constexpr const int myArray[4] = {1,2,3,4};
+      static constexpr const uint8_t myArray[4] = {1,2,3,4};
       Pinetime::System::SystemTask& systemTask;
       Pinetime::Controllers::Ble& bleController;
       DateTime& dateTimeController;
