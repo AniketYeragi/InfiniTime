@@ -211,6 +211,7 @@ void SystemTask::Work() {
           {
             displayApp->PushMessage(Pinetime::Applications::Display::Messages::EmergencyButton);
             wokeUpEmergency = false;
+            motorController.SetDuration(60);
           }
           
           isSleeping = false;

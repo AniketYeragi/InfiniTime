@@ -14,6 +14,14 @@ FallDetection::FallDetection(Pinetime::Applications::DisplayApp* app) : Screen(a
   lv_label_set_text(txtNarrative, "Emergency button");
   lv_label_set_align(txtNarrative, LV_LABEL_ALIGN_CENTER);
   lv_obj_align(txtNarrative, nullptr, LV_ALIGN_CENTER, 0, 10);
+
+  btnCancel = lv_btn_create(lv_scr_act(), nullptr);
+  btnCancel->user_data = this;
+  lv_obj_set_event_cb(btnCancel, play_pause_event_handler);
+  lv_obj_align(btnCancel, lv_scr_act(), LV_ALIGN_IN_TOP_MID, 0, -10);
+  lv_obj_set_height(btnCancel, 40);
+  txtCancel = lv_label_create(btnCancel, nullptr);
+  lv_label_set_text(txtCancel, Symbols::phoneSlash);
 }
 
 FallDetection::~FallDetection() {

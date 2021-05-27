@@ -24,6 +24,8 @@ namespace Pinetime {
       private:
         lv_obj_t* imgFlag;
         lv_obj_t* txtNarrative;
+        lv_obj_t* btnCancel;
+        lv_obj_t* txtCancel;
       };
     }
   }

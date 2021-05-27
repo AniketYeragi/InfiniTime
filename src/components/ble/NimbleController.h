@@ -71,10 +71,11 @@ namespace Pinetime {
       };
 
       uint16_t connHandle();
-      // uint8_t myArray[4] = {1,2,3,4};
+      uint8_t myArray[4] = {1,2,3,4};
 
     private:
       static constexpr const char* deviceName = "InfiniTime";
+      static constexpr const char* deviceNameBeacon = "GEMTEC";
       Pinetime::System::SystemTask& systemTask;
       Pinetime::Controllers::Ble& bleController;
       DateTime& dateTimeController;
@@ -95,6 +96,7 @@ namespace Pinetime {
 
       uint8_t addrType; // 1 = Random, 0 = PUBLIC
       uint16_t connectionHandle = 0;
+      std::atomic<bool> beaconToggle {false};
 
       ble_uuid128_t dfuServiceUuid {
         .u {.type = BLE_UUID_TYPE_128},
