@@ -4,6 +4,7 @@
 #include <lvgl/src/lv_core/lv_obj.h>
 #include <cstdint>
 #include "Screen.h"
+#include "Symbols.h"
 
 namespace Pinetime {
   namespace Components {
@@ -14,15 +15,15 @@ namespace Pinetime {
 
       class FallDetection : public Screen {
       public:
-        FallDetection(DisplayApp* app, Pinetime::Components::LittleVgl& lvgl);
+        FallDetection(DisplayApp* app);
 
         ~FallDetection() override;
 
         bool Refresh() override;
 
       private:
-        Pinetime::Components::LittleVgl& lvgl;
         lv_obj_t* imgFlag;
+        lv_obj_t* txtNarrative;
       };
     }
   }

@@ -6,12 +6,13 @@ using namespace Pinetime::Applications::Screens;
 
 LV_FONT_DECLARE(lv_font_navi_80)
 
-FallDetection::FallDetection(Pinetime::Applications::DisplayApp* app, Pinetime::Components::LittleVgl& lvgl) : Screen(app), lvgl {lvgl} {
-  imgFlag = lv_label_create(lv_scr_act(), nullptr);
-  lv_obj_set_style_local_text_font(imgFlag, LV_LABEL_PART_MAIN, LV_STATE_DEFAULT, &lv_font_navi_80);
-  lv_obj_set_style_local_text_color(imgFlag, LV_LABEL_PART_MAIN, LV_STATE_DEFAULT, LV_COLOR_RED);
-  lv_label_set_text(imgFlag, "Emergency activation!");
-  lv_obj_align(imgFlag, nullptr, LV_ALIGN_CENTER, 0, -60);
+FallDetection::FallDetection(Pinetime::Applications::DisplayApp* app) : Screen(app) {
+  txtNarrative = lv_label_create(lv_scr_act(), nullptr);
+  lv_label_set_long_mode(txtNarrative, LV_LABEL_LONG_BREAK);
+  lv_obj_set_width(txtNarrative, LV_HOR_RES);
+  lv_label_set_text(txtNarrative, "Navigation");
+  lv_label_set_align(txtNarrative, LV_LABEL_ALIGN_CENTER);
+  lv_obj_align(txtNarrative, nullptr, LV_ALIGN_CENTER, 0, 10);
 }
 
 FallDetection::~FallDetection() {
