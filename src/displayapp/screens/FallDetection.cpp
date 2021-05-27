@@ -4,71 +4,20 @@
 
 using namespace Pinetime::Applications::Screens;
 
+LV_FONT_DECLARE(lv_font_navi_80)
+
 FallDetection::FallDetection(Pinetime::Applications::DisplayApp* app, Pinetime::Components::LittleVgl& lvgl) : Screen(app), lvgl {lvgl} {
-  app->SetTouchMode(DisplayApp::TouchModes::Polling);
-  std::fill(b, b + bufferSize, selectColor);
+  imgFlag = lv_label_create(lv_scr_act(), nullptr);
+  lv_obj_set_style_local_text_font(imgFlag, LV_LABEL_PART_MAIN, LV_STATE_DEFAULT, &lv_font_navi_80);
+  lv_obj_set_style_local_text_color(imgFlag, LV_LABEL_PART_MAIN, LV_STATE_DEFAULT, LV_COLOR_CYAN);
+  lv_label_set_text(imgFlag, iconForName("flag"));
+  lv_obj_align(imgFlag, nullptr, LV_ALIGN_CENTER, 0, -60);
 }
 
 FallDetection::~FallDetection() {
-  // Reset the touchmode
-  app->SetTouchMode(DisplayApp::TouchModes::Gestures);
   lv_obj_clean(lv_scr_act());
 }
 
 bool FallDetection::Refresh() {
   return running;
-}
-
-bool FallDetection::OnTouchEvent(Pinetime::Applications::TouchEvents event) {
-  switch (event) {
-    case Pinetime::Applications::TouchEvents::LongTap:
-      switch (color) {
-        case 0:
-          selectColor = LV_COLOR_MAGENTA;
-          break;
-        case 1:
-          selectColor = LV_COLOR_GREEN;
-          break;
-        case 2:
-          selectColor = LV_COLOR_WHITE;
-          break;
-        case 3:
-          selectColor = LV_COLOR_RED;
-          break;
-        case 4:
-          selectColor = LV_COLOR_CYAN;
-          break;
-        case 5:
-          selectColor = LV_COLOR_YELLOW;
-          break;
-        case 6:
-          selectColor = LV_COLOR_BLUE;
-          break;
-        case 7:
-          selectColor = LV_COLOR_BLACK;
-          break;
-
-        default:
-          color = 0;
-          break;
-      }
-
-      std::fill(b, b + bufferSize, selectColor);
-      color++;
-      return true;
-    default:
-      return true;
-  }
-  return true;
-}
-
-bool FallDetection::OnTouchEvent(uint16_t x, uint16_t y) {
-  lv_area_t area;
-  area.x1 = x - (width / 2);
-  area.y1 = y - (height / 2);
-  area.x2 = x + (width / 2) - 1;
-  area.y2 = y + (height / 2) - 1;
-  lvgl.SetFullRefresh(Components::LittleVgl::FullRefreshDirections::None);
-  lvgl.FlushDisplay(&area, b);
-  return true;
 }

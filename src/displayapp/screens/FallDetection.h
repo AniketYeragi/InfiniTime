@@ -1,6 +1,7 @@
 #pragma once
 
 #include <lvgl/lvgl.h>
+#include <lvgl/src/lv_core/lv_obj.h>
 #include <cstdint>
 #include "Screen.h"
 
@@ -19,18 +20,8 @@ namespace Pinetime {
 
         bool Refresh() override;
 
-        bool OnTouchEvent(TouchEvents event) override;
-
-        bool OnTouchEvent(uint16_t x, uint16_t y) override;
-
       private:
-        Pinetime::Components::LittleVgl& lvgl;
-        static constexpr uint16_t width = 10;
-        static constexpr uint16_t height = 10;
-        static constexpr uint16_t bufferSize = width * height;
-        lv_color_t b[bufferSize];
-        lv_color_t selectColor = LV_COLOR_WHITE;
-        uint8_t color = 2;
+        lv_obj_t* imgFlag;
       };
     }
   }
