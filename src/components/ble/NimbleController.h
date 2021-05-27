@@ -1,6 +1,8 @@
 #pragma once
 
 #include <cstdint>
+#include <atomic>
+#include <memory>
 
 #define min // workaround: nimble's min/max macros conflict with libstdc++
 #define max
