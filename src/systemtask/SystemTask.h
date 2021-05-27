@@ -104,6 +104,7 @@ namespace Pinetime {
       std::atomic<bool> isSleeping {false};
       std::atomic<bool> isGoingToSleep {false};
       std::atomic<bool> isWakingUp {false};
+      std::atomic<bool> wokeUpEmergency {false};
       Pinetime::Drivers::Watchdog watchdog;
       Pinetime::Drivers::WatchdogView watchdogView;
       Pinetime::Controllers::NotificationManager notificationManager;

@@ -207,10 +207,10 @@ void SystemTask::Work() {
           displayApp->PushMessage(Pinetime::Applications::Display::Messages::UpdateBatteryLevel);
           heartRateApp->PushMessage(Pinetime::Applications::HeartRateTask::Messages::WakeUp);
 
-          auto touchInfo = touchPanel.GetTouchInfo();
-          if (touchInfo.gesture == Pinetime::Drivers::Cst816S::Gestures::LongPress)
+          if (wokeUpEmergency == true)
           {
             displayApp->PushMessage(Pinetime::Applications::Display::Messages::EmergencyButton);
+            wokeUpEmergency = false;
           }
           
           isSleeping = false;
@@ -225,6 +225,15 @@ void SystemTask::Work() {
                                      (touchInfo.gesture == Pinetime::Drivers::Cst816S::Gestures::SingleTap and
                                       settingsController.getWakeUpMode() == Pinetime::Controllers::Settings::WakeUpMode::SingleTap) or
                                       touchInfo.gesture == Pinetime::Drivers::Cst816S::Gestures::LongPress)) {
+            if (touchInfo.gesture == Pinetime::Drivers::Cst816S::Gestures::LongPress))
+            {
+              wokeUpEmergency = true;
+            }
+            else
+            {
+              wokeUpEmergency = false;
+            }
+            
             GoToRunning();
           }
         } break;
