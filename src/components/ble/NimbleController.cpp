@@ -154,7 +154,7 @@ void NimbleController::StartAdvertising() {
 
   fields.flags = BLE_HS_ADV_F_DISC_GEN | BLE_HS_ADV_F_BREDR_UNSUP;
   fields.mfg_data = (uint8_t*)myArray;
-  fields.mfg_data_len = strlen(myArray);
+  fields.mfg_data_len = 4;
   fields.tx_pwr_lvl = BLE_HS_ADV_TX_PWR_LVL_AUTO;
 
   // rsp_fields.name = (uint8_t*) deviceName;
