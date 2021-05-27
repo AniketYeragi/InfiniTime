@@ -225,7 +225,7 @@ void SystemTask::Work() {
                                      (touchInfo.gesture == Pinetime::Drivers::Cst816S::Gestures::SingleTap and
                                       settingsController.getWakeUpMode() == Pinetime::Controllers::Settings::WakeUpMode::SingleTap) or
                                       touchInfo.gesture == Pinetime::Drivers::Cst816S::Gestures::LongPress)) {
-            if (touchInfo.gesture == Pinetime::Drivers::Cst816S::Gestures::LongPress))
+            if (touchInfo.gesture == Pinetime::Drivers::Cst816S::Gestures::LongPress)
             {
               wokeUpEmergency = true;
             }
