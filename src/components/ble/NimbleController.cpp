@@ -82,10 +82,59 @@ void NimbleController::Init() {
 }
 
 void NimbleController::StartAdvertising() {
-  if (bleController.IsConnected() || ble_gap_conn_active() || ble_gap_adv_active())
+  // if (bleController.IsConnected() || ble_gap_conn_active() || ble_gap_adv_active())
+  //   return;
+
+  // ble_svc_gap_device_name_set(deviceName);
+
+  // /* set adv parameters */
+  // struct ble_gap_adv_params adv_params;
+  // struct ble_hs_adv_fields fields;
+  // /* advertising payload is split into advertising data and advertising
+  //    response, because all data cannot fit into single packet; name of device
+  //    is sent as response to scan request */
+  // struct ble_hs_adv_fields rsp_fields;
+
+  // /* fill all fields and parameters with zeros */
+  // memset(&adv_params, 0, sizeof(adv_params));
+  // memset(&fields, 0, sizeof(fields));
+  // memset(&rsp_fields, 0, sizeof(rsp_fields));
+
+  // adv_params.conn_mode = BLE_GAP_CONN_MODE_UND;
+  // adv_params.disc_mode = BLE_GAP_DISC_MODE_GEN;
+
+  // fields.flags = BLE_HS_ADV_F_DISC_GEN | BLE_HS_ADV_F_BREDR_UNSUP;
+  // //  fields.uuids128 = BLE_UUID128(BLE_UUID128_DECLARE(
+  // //          0x00, 0x11, 0x22, 0x33, 0x44, 0x55, 0x66, 0x77,
+  // //          0x88, 0x99, 0xaa, 0xbb, 0xcc, 0xdd, 0xee, 0xff));
+  // fields.uuids128 = &dfuServiceUuid;
+  // fields.num_uuids128 = 1;
+  // fields.uuids128_is_complete = 1;
+  // fields.tx_pwr_lvl = BLE_HS_ADV_TX_PWR_LVL_AUTO;
+
+  // rsp_fields.name = (uint8_t*) deviceName;
+  // rsp_fields.name_len = strlen(deviceName);
+  // rsp_fields.name_is_complete = 1;
+
+  // ble_gap_adv_set_fields(&fields);
+  // //  ASSERT(res == 0); // TODO this one sometimes fails with error 22 (notsync)
+
+  // ble_gap_adv_rsp_set_fields(&rsp_fields);
+  // //  ASSERT(res == 0);
+
+  // ble_gap_adv_start(addrType, NULL, 180000, &adv_params, GAPEventCallback, this);
+  // //  ASSERT(res == 0);// TODO I've disabled these ASSERT as they sometime asserts and reset the mcu.
+  // // For now, the advertising is restarted as soon as it ends. There may be a race condition
+  // // that prevent the advertising from restarting reliably.
+  // // I remove the assert to prevent this uncesseray crash, but in the long term, the management of
+  // // the advertising should be improve (better error handling, and advertise for 3 minutes after
+  // // the application has been woken up, for example.
+
+
+  if (ble_gap_adv_active())
     return;
 
-  ble_svc_gap_device_name_set(deviceName);
+  ble_svc_gap_device_name_set("GEMTEC");
 
   /* set adv parameters */
   struct ble_gap_adv_params adv_params;
@@ -93,33 +142,29 @@ void NimbleController::StartAdvertising() {
   /* advertising payload is split into advertising data and advertising
      response, because all data cannot fit into single packet; name of device
      is sent as response to scan request */
-  struct ble_hs_adv_fields rsp_fields;
+  // struct ble_hs_adv_fields rsp_fields;
 
   /* fill all fields and parameters with zeros */
   memset(&adv_params, 0, sizeof(adv_params));
   memset(&fields, 0, sizeof(fields));
-  memset(&rsp_fields, 0, sizeof(rsp_fields));
+  // memset(&rsp_fields, 0, sizeof(rsp_fields));
 
-  adv_params.conn_mode = BLE_GAP_CONN_MODE_UND;
+  adv_params.conn_mode = BLE_GAP_CONN_MODE_NON;
   adv_params.disc_mode = BLE_GAP_DISC_MODE_GEN;
 
   fields.flags = BLE_HS_ADV_F_DISC_GEN | BLE_HS_ADV_F_BREDR_UNSUP;
-  //  fields.uuids128 = BLE_UUID128(BLE_UUID128_DECLARE(
-  //          0x00, 0x11, 0x22, 0x33, 0x44, 0x55, 0x66, 0x77,
-  //          0x88, 0x99, 0xaa, 0xbb, 0xcc, 0xdd, 0xee, 0xff));
-  fields.uuids128 = &dfuServiceUuid;
-  fields.num_uuids128 = 1;
-  fields.uuids128_is_complete = 1;
+  fields.mfg_data = (uint8_t[]){ 1,2,3,4 };
+  fields.mfg_data_len = 4;
   fields.tx_pwr_lvl = BLE_HS_ADV_TX_PWR_LVL_AUTO;
 
-  rsp_fields.name = (uint8_t*) deviceName;
-  rsp_fields.name_len = strlen(deviceName);
-  rsp_fields.name_is_complete = 1;
+  // rsp_fields.name = (uint8_t*) deviceName;
+  // rsp_fields.name_len = strlen(deviceName);
+  // rsp_fields.name_is_complete = 1;
 
   ble_gap_adv_set_fields(&fields);
   //  ASSERT(res == 0); // TODO this one sometimes fails with error 22 (notsync)
 
-  ble_gap_adv_rsp_set_fields(&rsp_fields);
+  // ble_gap_adv_rsp_set_fields(&rsp_fields);
   //  ASSERT(res == 0);
 
   ble_gap_adv_start(addrType, NULL, 180000, &adv_params, GAPEventCallback, this);
