@@ -17,7 +17,7 @@ FallDetection::FallDetection(Pinetime::Applications::DisplayApp* app) : Screen(a
 
   btnCancel = lv_btn_create(lv_scr_act(), nullptr);
   btnCancel->user_data = this;
-  lv_obj_set_event_cb(btnCancel, play_pause_event_handler);
+  lv_obj_set_event_cb(btnCancel, cancel_event_handler);
   lv_obj_align(btnCancel, lv_scr_act(), LV_ALIGN_IN_TOP_MID, 0, -10);
   lv_obj_set_height(btnCancel, 40);
   txtCancel = lv_label_create(btnCancel, nullptr);
@@ -30,4 +30,9 @@ FallDetection::~FallDetection() {
 
 bool FallDetection::Refresh() {
   return running;
+}
+
+static void cancel_event_handler(lv_obj_t* obj, lv_event_t event) {
+  // auto stopWatch = static_cast<StopWatch*>(obj->user_data);
+  // stopWatch->playPauseBtnEventHandler(event);
 }
