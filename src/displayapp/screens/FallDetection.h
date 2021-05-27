@@ -21,6 +21,7 @@ namespace Pinetime {
         bool Refresh() override;
 
       private:
+        Pinetime::Components::LittleVgl& lvgl;
         lv_obj_t* imgFlag;
       };
     }
