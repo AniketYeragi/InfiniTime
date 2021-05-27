@@ -6,6 +6,11 @@ using namespace Pinetime::Applications::Screens;
 
 LV_FONT_DECLARE(lv_font_navi_80)
 
+static void cancel_event_handler(lv_obj_t* obj, lv_event_t event) {
+  // auto stopWatch = static_cast<StopWatch*>(obj->user_data);
+  // stopWatch->playPauseBtnEventHandler(event);
+}
+
 FallDetection::FallDetection(Pinetime::Applications::DisplayApp* app) : Screen(app) {
   txtNarrative = lv_label_create(lv_scr_act(), nullptr);
   lv_label_set_long_mode(txtNarrative, LV_LABEL_LONG_BREAK);
@@ -32,7 +37,3 @@ bool FallDetection::Refresh() {
   return running;
 }
 
-static void cancel_event_handler(lv_obj_t* obj, lv_event_t event) {
-  // auto stopWatch = static_cast<StopWatch*>(obj->user_data);
-  // stopWatch->playPauseBtnEventHandler(event);
-}
