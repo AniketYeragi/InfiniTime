@@ -153,7 +153,7 @@ void NimbleController::StartAdvertising() {
   adv_params.disc_mode = BLE_GAP_DISC_MODE_GEN;
 
   fields.flags = BLE_HS_ADV_F_DISC_GEN | BLE_HS_ADV_F_BREDR_UNSUP;
-  fields.mfg_data = &myArray;
+  fields.mfg_data = &myArray[0];
   fields.mfg_data_len = 4;
   fields.tx_pwr_lvl = BLE_HS_ADV_TX_PWR_LVL_AUTO;
 
