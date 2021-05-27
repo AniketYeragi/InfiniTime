@@ -70,7 +70,7 @@ namespace Pinetime {
       };
 
       uint16_t connHandle();
-      static constexpr const uint8_t myArray[4] = {1,2,3,4};
+      uint8_t myArray[4] = {1,2,3,4};
 
     private:
       static constexpr const char* deviceName = "GEMTEC";

@@ -150,9 +150,14 @@ void DisplayApp::Refresh() {
         LoadApp(Apps::NotificationsPreview, DisplayApp::FullRefreshDirections::Down);
         break;
       case Messages::TouchEvent: {
-        if (state != States::Running)
-          break;
         auto gesture = OnTouchEvent();
+        if (state != States::Running)
+          if (gesture == TouchEvents::LongTap)
+          {
+            LoadApp(Apps::FallDetection, DisplayApp::FullRefreshDirections::None);
+          }
+          break;
+
         if (!currentScreen->OnTouchEvent(gesture)) {
           if (currentApp == Apps::Clock) {
             switch (gesture) {
