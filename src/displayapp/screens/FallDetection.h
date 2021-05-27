@@ -26,6 +26,7 @@ namespace Pinetime {
         lv_obj_t* txtNarrative;
         lv_obj_t* btnCancel;
         lv_obj_t* txtCancel;
+        lv_obj_t* time;
       };
     }
   }
