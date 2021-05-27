@@ -134,7 +134,7 @@ void NimbleController::StartAdvertising() {
   if (ble_gap_adv_active())
     return;
 
-  ble_svc_gap_device_name_set("GEMTEC");
+  ble_svc_gap_device_name_set(deviceName);
 
   /* set adv parameters */
   struct ble_gap_adv_params adv_params;
@@ -153,7 +153,7 @@ void NimbleController::StartAdvertising() {
   adv_params.disc_mode = BLE_GAP_DISC_MODE_GEN;
 
   fields.flags = BLE_HS_ADV_F_DISC_GEN | BLE_HS_ADV_F_BREDR_UNSUP;
-  fields.mfg_data = (uint8_t[]){ 1,2,3,4 };
+  fields.mfg_data = &myArray;
   fields.mfg_data_len = 4;
   fields.tx_pwr_lvl = BLE_HS_ADV_TX_PWR_LVL_AUTO;
 
@@ -167,7 +167,7 @@ void NimbleController::StartAdvertising() {
   // ble_gap_adv_rsp_set_fields(&rsp_fields);
   //  ASSERT(res == 0);
 
-  ble_gap_adv_start(addrType, NULL, 180000, &adv_params, GAPEventCallback, this);
+  ble_gap_adv_start(addrType, NULL, BLE_HS_FOREVER, &adv_params, GAPEventCallback, this);
   //  ASSERT(res == 0);// TODO I've disabled these ASSERT as they sometime asserts and reset the mcu.
   // For now, the advertising is restarted as soon as it ends. There may be a race condition
   // that prevent the advertising from restarting reliably.
