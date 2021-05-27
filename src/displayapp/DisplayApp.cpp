@@ -149,6 +149,9 @@ void DisplayApp::Refresh() {
       case Messages::NewNotification:
         LoadApp(Apps::NotificationsPreview, DisplayApp::FullRefreshDirections::Down);
         break;
+      case Messages::EmergencyButton:
+        LoadApp(Apps::Music, DisplayApp::FullRefreshDirections::None);
+        break;
       case Messages::TouchEvent: {
         
         if (state != States::Running)

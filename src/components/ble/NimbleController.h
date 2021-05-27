@@ -46,6 +46,7 @@ namespace Pinetime {
                        Controllers::HeartRateController& heartRateController);
       void Init();
       void StartAdvertising();
+      void BeaconAdvertising();
       int OnGAPEvent(ble_gap_event* event);
 
       int OnDiscoveryEvent(uint16_t i, const ble_gatt_error* pError, const ble_gatt_svc* pSvc);

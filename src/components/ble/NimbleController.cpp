@@ -129,9 +129,9 @@ void NimbleController::StartAdvertising() {
   // I remove the assert to prevent this uncesseray crash, but in the long term, the management of
   // the advertising should be improve (better error handling, and advertise for 3 minutes after
   // the application has been woken up, for example.
-// }
+}
 
-// void NimbleController::BeaconAdvertising() {
+void NimbleController::BeaconAdvertising() {
   // if (ble_gap_adv_active())
   //   return;
 
