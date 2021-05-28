@@ -13,8 +13,8 @@ static void cancel_event_handler(lv_obj_t* obj, lv_event_t event) {
 
 FallDetection::FallDetection(Pinetime::Applications::DisplayApp* app)
  : Screen(app),
- currentState {States::Running},
- currentEvent {Events::Play} {
+ currentState {EmergencyTimerStates::Running},
+ currentEvent {EmergencyTimerEvents::Play} {
 
   time = lv_label_create(lv_scr_act(), nullptr);
   lv_obj_set_style_local_text_font(time, LV_LABEL_PART_MAIN, LV_STATE_DEFAULT, &jetbrains_mono_76);
@@ -48,7 +48,7 @@ bool FallDetection::Refresh() {
   switch (currentState) {
     // Init state when an user first opens the app
     // and when a stop/reset button is pressed
-    case States::Init: {
+    case EmergencyTimerStates::Init: {
       // if (btnStopLap != nullptr) {
       //   lv_obj_del(btnStopLap);
       //   btnStopLap = nullptr;
@@ -76,8 +76,8 @@ bool FallDetection::Refresh() {
       // }
       break;
     }
-    case States::Running: {
-      if (currentEvent == Events::Stop) {
+    case EmergencyTimerStates::Running: {
+      if (currentEvent == EmergencyTimerEvents::Stop) {
         lv_obj_set_style_local_text_color(time, LV_LABEL_PART_MAIN, LV_STATE_DEFAULT, LV_COLOR_YELLOW);
       }
 
@@ -117,7 +117,7 @@ bool FallDetection::Refresh() {
       // }
       break;
     }
-    case States::Halted: {
+    case EmergencyTimerStates::Halted: {
       // lv_label_set_text(txtPlayPause, Symbols::play);
       // lv_label_set_text(txtStopLap, Symbols::stop);
 
@@ -139,7 +139,7 @@ bool FallDetection::Refresh() {
 
 void StopWatch::cancelBtnEventHandler(lv_event_t event) {
   if (event == LV_EVENT_CLICKED) {
-    currentEvent = Events::Stop;
+    currentEvent = EmergencyTimerEvents::Stop;
   }
 }
 
