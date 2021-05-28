@@ -35,11 +35,13 @@ static void cancel_event_handler(lv_obj_t* obj, lv_event_t event) {
   fallDetection->cancelBtnEventHandler(event);
 }
 
-FallDetection::FallDetection(Pinetime::Applications::DisplayApp* app)
+FallDetection::FallDetection(Pinetime::Applications::DisplayApp* app,
+                              Controllers::MotorController& motorController)
  : Screen(app),
  currentState {EmergencyTimerStates::Init},
  currentEvent {EmergencyTimerEvents::Start},
- startTime {} {
+ startTime {},
+ motorController {motorController} {
 
   time = lv_label_create(lv_scr_act(), nullptr);
   lv_obj_set_style_local_text_font(time, LV_LABEL_PART_MAIN, LV_STATE_DEFAULT, &jetbrains_mono_76);

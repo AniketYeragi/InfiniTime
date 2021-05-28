@@ -19,7 +19,7 @@ namespace Pinetime {
       enum class EmergencyTimerEvents { Start, Stop };
       class FallDetection : public Screen {
       public:
-        FallDetection(DisplayApp* app);
+        FallDetection(DisplayApp* app, Controllers::MotorController& motorController);
 
         ~FallDetection() override;
 
