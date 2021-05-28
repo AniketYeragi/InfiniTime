@@ -82,6 +82,7 @@ bool FallDetection::Refresh() {
       if (currentEvent == EmergencyTimerEvents::Stop) {
         lv_obj_set_style_local_text_color(time, LV_LABEL_PART_MAIN, LV_STATE_DEFAULT, LV_COLOR_YELLOW);
         currentState = EmergencyTimerStates::Halted;
+        break;
       }
 
       const auto timeElapsed = calculateDelta(startTime, xTaskGetTickCount());
@@ -93,12 +94,11 @@ bool FallDetection::Refresh() {
       }
       else
       {
-        lv_label_set_text_fmt(time, "%02d", currentTimeSeconds);
+        lv_label_set_text_fmt(time, "%d", currentTimeSeconds);
       }
       break;
     }
     case EmergencyTimerStates::Halted: {
-      lv_obj_set_style_local_text_color(time, LV_LABEL_PART_MAIN, LV_STATE_DEFAULT, LV_COLOR_GRAY);
       break;
     }
   }
