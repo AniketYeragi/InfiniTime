@@ -67,6 +67,8 @@ FallDetection::FallDetection(Pinetime::Applications::DisplayApp* app,
   lv_obj_set_height(btnCancel, 40);
   txtCancel = lv_label_create(btnCancel, nullptr);
   lv_label_set_text(txtCancel, Symbols::phoneSlash);
+
+  motorController.SetDuration(60);
 }
 
 FallDetection::~FallDetection() {
@@ -121,6 +123,7 @@ void FallDetection::cancelBtnEventHandler(lv_event_t event) {
 bool FallDetection::OnTouchEvent(Pinetime::Applications::TouchEvents event) {
   switch (event) {
     case Pinetime::Applications::TouchEvents::None:
+    lv_label_set_text(txtNarrative, "None");
     break;
     case Pinetime::Applications::TouchEvents::Tap:
       lv_label_set_text(txtNarrative, "Tap");
