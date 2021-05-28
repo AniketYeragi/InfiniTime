@@ -49,42 +49,18 @@ bool FallDetection::Refresh() {
     // Init state when an user first opens the app
     // and when a stop/reset button is pressed
     case EmergencyTimerStates::Init: {
-      // if (btnStopLap != nullptr) {
-      //   lv_obj_del(btnStopLap);
-      //   btnStopLap = nullptr;
-      // }
-      // // The initial default value
-      // lv_label_set_text(time, "00:00");
-      // lv_label_set_text(msecTime, "00");
-
-      // lv_label_set_text(lapOneText, "");
-      // lv_label_set_text(lapTwoText, "");
-      // lapBuffer.clearBuffer();
-      // lapNr = 0;
-
-      // if (currentEvent == Events::Play) {
-      //   btnStopLap = lv_btn_create(lv_scr_act(), nullptr);
-      //   btnStopLap->user_data = this;
-      //   lv_obj_set_event_cb(btnStopLap, stop_lap_event_handler);
-      //   lv_obj_align(btnStopLap, lv_scr_act(), LV_ALIGN_IN_TOP_MID, 0, 0);
-      //   lv_obj_set_height(btnStopLap, 40);
-      //   txtStopLap = lv_label_create(btnStopLap, nullptr);
-      //   lv_label_set_text(txtStopLap, Symbols::lapsFlag);
-
-      //   startTime = xTaskGetTickCount();
-      //   currentState = States::Running;
-      // }
+        startTime = xTaskGetTickCount();
+        currentState = EmergencyTimerStates::Running;
+      }
       break;
     }
     case EmergencyTimerStates::Running: {
       if (currentEvent == EmergencyTimerEvents::Stop) {
         lv_obj_set_style_local_text_color(time, LV_LABEL_PART_MAIN, LV_STATE_DEFAULT, LV_COLOR_YELLOW);
+        currentState = EmergencyTimerStates::Halted;
       }
 
-      // lv_label_set_text(txtPlayPause, Symbols::pause);
-      // lv_label_set_text(txtStopLap, Symbols::lapsFlag);
-
-      // const auto timeElapsed = calculateDelta(startTime, xTaskGetTickCount());
+      const auto timeElapsed = calculateDelta(startTime, xTaskGetTickCount());
       // currentTimeSeparated = convertTicksToTimeSegments((oldTimeElapsed + timeElapsed));
 
       // lv_label_set_text_fmt(time, "%02d:%02d", currentTimeSeparated.mins, currentTimeSeparated.secs);

@@ -13,7 +13,7 @@ namespace Pinetime {
   namespace Applications {
     namespace Screens {
       enum class EmergencyTimerStates { Init, Running, Halted };
-      enum class EmergencyTimerEvents { Play, Pause, Stop };
+      enum class EmergencyTimerEvents { Start, Stop };
       class FallDetection : public Screen {
       public:
         FallDetection(DisplayApp* app);
@@ -27,6 +27,7 @@ namespace Pinetime {
       private:
         EmergencyTimerStates currentState;
         EmergencyTimerEvents currentEvent;
+        TickType_t startTime;
 
         lv_obj_t* imgFlag;
         lv_obj_t* txtNarrative;
