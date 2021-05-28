@@ -144,5 +144,5 @@ bool FallDetection::OnTouchEvent(Pinetime::Applications::TouchEvents event) {
       lv_label_set_text(txtNarrative, "DoubleTap");
     break;
   }
-  return true
+  return true;
 }
