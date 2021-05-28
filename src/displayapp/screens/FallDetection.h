@@ -25,8 +25,8 @@ namespace Pinetime {
         void cancelBtnEventHandler(lv_event_t event);
 
       private:
-        States currentState;
-        Events currentEvent;
+        EmergencyTimerStates currentState;
+        EmergencyTimerEvents currentEvent;
 
         lv_obj_t* imgFlag;
         lv_obj_t* txtNarrative;
