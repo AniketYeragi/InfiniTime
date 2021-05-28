@@ -11,7 +11,10 @@ static void cancel_event_handler(lv_obj_t* obj, lv_event_t event) {
   fallDetection->cancelBtnEventHandler(event);
 }
 
-FallDetection::FallDetection(Pinetime::Applications::DisplayApp* app) : Screen(app) {
+FallDetection::FallDetection(Pinetime::Applications::DisplayApp* app)
+ : Screen(app),
+ currentState {States::Running},
+ currentEvent {Events::Play} {
 
   time = lv_label_create(lv_scr_act(), nullptr);
   lv_obj_set_style_local_text_font(time, LV_LABEL_PART_MAIN, LV_STATE_DEFAULT, &jetbrains_mono_76);
@@ -42,12 +45,101 @@ FallDetection::~FallDetection() {
 }
 
 bool FallDetection::Refresh() {
+  switch (currentState) {
+    // Init state when an user first opens the app
+    // and when a stop/reset button is pressed
+    case States::Init: {
+      // if (btnStopLap != nullptr) {
+      //   lv_obj_del(btnStopLap);
+      //   btnStopLap = nullptr;
+      // }
+      // // The initial default value
+      // lv_label_set_text(time, "00:00");
+      // lv_label_set_text(msecTime, "00");
+
+      // lv_label_set_text(lapOneText, "");
+      // lv_label_set_text(lapTwoText, "");
+      // lapBuffer.clearBuffer();
+      // lapNr = 0;
+
+      // if (currentEvent == Events::Play) {
+      //   btnStopLap = lv_btn_create(lv_scr_act(), nullptr);
+      //   btnStopLap->user_data = this;
+      //   lv_obj_set_event_cb(btnStopLap, stop_lap_event_handler);
+      //   lv_obj_align(btnStopLap, lv_scr_act(), LV_ALIGN_IN_TOP_MID, 0, 0);
+      //   lv_obj_set_height(btnStopLap, 40);
+      //   txtStopLap = lv_label_create(btnStopLap, nullptr);
+      //   lv_label_set_text(txtStopLap, Symbols::lapsFlag);
+
+      //   startTime = xTaskGetTickCount();
+      //   currentState = States::Running;
+      // }
+      break;
+    }
+    case States::Running: {
+      if (currentEvent == Events::Stop) {
+        lv_obj_set_style_local_text_color(time, LV_LABEL_PART_MAIN, LV_STATE_DEFAULT, LV_COLOR_YELLOW);
+      }
+
+      // lv_label_set_text(txtPlayPause, Symbols::pause);
+      // lv_label_set_text(txtStopLap, Symbols::lapsFlag);
+
+      // const auto timeElapsed = calculateDelta(startTime, xTaskGetTickCount());
+      // currentTimeSeparated = convertTicksToTimeSegments((oldTimeElapsed + timeElapsed));
+
+      // lv_label_set_text_fmt(time, "%02d:%02d", currentTimeSeparated.mins, currentTimeSeparated.secs);
+      // lv_label_set_text_fmt(msecTime, "%02d", currentTimeSeparated.hundredths);
+
+      // if (lapPressed == true) {
+      //   if (lapBuffer[1]) {
+      //     lv_label_set_text_fmt(
+      //       lapOneText, "#%2d   %2d:%02d.%02d", (lapNr - 1), lapBuffer[1]->mins, lapBuffer[1]->secs, lapBuffer[1]->hundredths);
+      //   }
+      //   if (lapBuffer[0]) {
+      //     lv_label_set_text_fmt(
+      //       lapTwoText, "#%2d   %2d:%02d.%02d", lapNr, lapBuffer[0]->mins, lapBuffer[0]->secs, lapBuffer[0]->hundredths);
+      //   }
+      //   // Reset the bool to avoid setting the text in each cycle until there is a change
+      //   lapPressed = false;
+      // }
+
+      // if (currentEvent == Events::Pause) {
+      //   // Reset the start time
+      //   startTime = 0;
+      //   // Store the current time elapsed in cache
+      //   oldTimeElapsed += timeElapsed;
+      //   currentState = States::Halted;
+      //   lv_obj_set_style_local_text_color(time, LV_LABEL_PART_MAIN, LV_STATE_DEFAULT, LV_COLOR_YELLOW);
+      //   lv_obj_set_style_local_text_color(msecTime, LV_LABEL_PART_MAIN, LV_STATE_DEFAULT, LV_COLOR_YELLOW);
+      // } else {
+      //   lv_obj_set_style_local_text_color(time, LV_LABEL_PART_MAIN, LV_STATE_DEFAULT, LV_COLOR_GREEN);
+      //   lv_obj_set_style_local_text_color(msecTime, LV_LABEL_PART_MAIN, LV_STATE_DEFAULT, LV_COLOR_GREEN);
+      // }
+      break;
+    }
+    case States::Halted: {
+      // lv_label_set_text(txtPlayPause, Symbols::play);
+      // lv_label_set_text(txtStopLap, Symbols::stop);
+
+      // if (currentEvent == Events::Play) {
+      //   startTime = xTaskGetTickCount();
+      //   currentState = States::Running;
+      // }
+      // if (currentEvent == Events::Stop) {
+      //   currentState = States::Init;
+      //   oldTimeElapsed = 0;
+      //   lv_obj_set_style_local_text_color(time, LV_LABEL_PART_MAIN, LV_STATE_DEFAULT, LV_COLOR_GRAY);
+      //   lv_obj_set_style_local_text_color(msecTime, LV_LABEL_PART_MAIN, LV_STATE_DEFAULT, LV_COLOR_GRAY);
+      // }
+      break;
+    }
+  }
   return running;
 }
 
 void StopWatch::cancelBtnEventHandler(lv_event_t event) {
   if (event == LV_EVENT_CLICKED) {
-    lv_obj_set_style_local_text_color(time, LV_LABEL_PART_MAIN, LV_STATE_DEFAULT, LV_COLOR_RED);
+    currentEvent = Events::Stop;
   }
 }
 
