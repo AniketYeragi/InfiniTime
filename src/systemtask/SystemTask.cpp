@@ -391,6 +391,11 @@ void SystemTask::OnTouchEvent() {
       return;
     PushMessage(Messages::TouchWakeUp);
   }
+  else
+  {
+    displayApp->PushMessage(Pinetime::Applications::Display::Messages::TouchEvent);
+  }
+  
 }
 
 void SystemTask::PushMessage(SystemTask::Messages msg) {
