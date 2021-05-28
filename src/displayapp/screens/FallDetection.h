@@ -21,6 +21,8 @@ namespace Pinetime {
 
         bool Refresh() override;
 
+        void cancelBtnEventHandler(lv_event_t event);
+
       private:
         lv_obj_t* imgFlag;
         lv_obj_t* txtNarrative;

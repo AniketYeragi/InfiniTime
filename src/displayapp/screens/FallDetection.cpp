@@ -7,8 +7,8 @@ using namespace Pinetime::Applications::Screens;
 LV_FONT_DECLARE(lv_font_navi_80)
 
 static void cancel_event_handler(lv_obj_t* obj, lv_event_t event) {
-  // auto stopWatch = static_cast<StopWatch*>(obj->user_data);
-  // stopWatch->playPauseBtnEventHandler(event);
+  auto fallDetection = static_cast<FallDetection*>(obj->user_data);
+  fallDetection->cancelBtnEventHandler(event);
 }
 
 FallDetection::FallDetection(Pinetime::Applications::DisplayApp* app) : Screen(app) {
@@ -43,5 +43,11 @@ FallDetection::~FallDetection() {
 
 bool FallDetection::Refresh() {
   return running;
+}
+
+void StopWatch::cancelBtnEventHandler(lv_event_t event) {
+  if (event == LV_EVENT_CLICKED) {
+    lv_obj_set_style_local_text_color(time, LV_LABEL_PART_MAIN, LV_STATE_DEFAULT, LV_COLOR_RED);
+  }
 }
 
