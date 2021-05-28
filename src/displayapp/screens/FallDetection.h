@@ -6,6 +6,9 @@
 #include "Screen.h"
 #include "Symbols.h"
 
+#include "FreeRTOS.h"
+#include "portmacro_cmsis.h"
+
 namespace Pinetime {
   namespace Components {
     class LittleVgl;
@@ -28,6 +31,7 @@ namespace Pinetime {
         EmergencyTimerStates currentState;
         EmergencyTimerEvents currentEvent;
         TickType_t startTime;
+        int currentTimeSeconds;
 
         lv_obj_t* imgFlag;
         lv_obj_t* txtNarrative;

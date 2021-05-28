@@ -1,10 +1,36 @@
 #include "FallDetection.h"
 #include "../DisplayApp.h"
 #include "../LittleVgl.h"
+#include "FreeRTOSConfig.h"
+#include "task.h"
 
 using namespace Pinetime::Applications::Screens;
 
 LV_FONT_DECLARE(lv_font_navi_80)
+
+// Anonymous namespace for local functions
+namespace {
+  int convertTicksToTimeSegments(const TickType_t timeElapsed) {
+    const int timeElapsedMillis = (static_cast<float>(timeElapsed) / static_cast<float>(configTICK_RATE_HZ)) * 1000;
+
+    const int hundredths = (timeElapsedMillis % 1000) / 10; // Get only the first two digits and ignore the last
+    const int secs = (timeElapsedMillis / 1000) % 60;
+    const int mins = (timeElapsedMillis / 1000) / 60;
+    return secs;
+  }
+
+  TickType_t calculateDelta(const TickType_t startTime, const TickType_t currentTime) {
+    TickType_t delta = 0;
+    // Take care of overflow
+    if (startTime > currentTime) {
+      delta = 0xffffffff - startTime;
+      delta += (currentTime + 1);
+    } else {
+      delta = currentTime - startTime;
+    }
+    return delta;
+  }
+}
 
 static void cancel_event_handler(lv_obj_t* obj, lv_event_t event) {
   auto fallDetection = static_cast<FallDetection*>(obj->user_data);
@@ -14,7 +40,8 @@ static void cancel_event_handler(lv_obj_t* obj, lv_event_t event) {
 FallDetection::FallDetection(Pinetime::Applications::DisplayApp* app)
  : Screen(app),
  currentState {EmergencyTimerStates::Running},
- currentEvent {EmergencyTimerEvents::Play} {
+ currentEvent {EmergencyTimerEvents::Start},
+ startTime {} {
 
   time = lv_label_create(lv_scr_act(), nullptr);
   lv_obj_set_style_local_text_font(time, LV_LABEL_PART_MAIN, LV_STATE_DEFAULT, &jetbrains_mono_76);
@@ -51,7 +78,6 @@ bool FallDetection::Refresh() {
     case EmergencyTimerStates::Init: {
         startTime = xTaskGetTickCount();
         currentState = EmergencyTimerStates::Running;
-      }
       break;
     }
     case EmergencyTimerStates::Running: {
@@ -61,9 +87,9 @@ bool FallDetection::Refresh() {
       }
 
       const auto timeElapsed = calculateDelta(startTime, xTaskGetTickCount());
-      // currentTimeSeparated = convertTicksToTimeSegments((oldTimeElapsed + timeElapsed));
+      currentTimeSeconds = convertTicksToTimeSegments(timeElapsed);
 
-      // lv_label_set_text_fmt(time, "%02d:%02d", currentTimeSeparated.mins, currentTimeSeparated.secs);
+      lv_label_set_text_fmt(time, "%02d", currentTimeSeconds);
       // lv_label_set_text_fmt(msecTime, "%02d", currentTimeSeparated.hundredths);
 
       // if (lapPressed == true) {
