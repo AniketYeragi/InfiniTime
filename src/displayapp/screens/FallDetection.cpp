@@ -13,10 +13,8 @@ namespace {
   int convertTicksToTimeSegments(const TickType_t timeElapsed) {
     const int timeElapsedMillis = (static_cast<float>(timeElapsed) / static_cast<float>(configTICK_RATE_HZ)) * 1000;
 
-    const int hundredths = (timeElapsedMillis % 1000) / 10; // Get only the first two digits and ignore the last
     const int secs = (timeElapsedMillis / 1000) % 60;
-    const int mins = (timeElapsedMillis / 1000) / 60;
-    return secs;
+    return 5-secs;
   }
 
   TickType_t calculateDelta(const TickType_t startTime, const TickType_t currentTime) {
@@ -39,7 +37,7 @@ static void cancel_event_handler(lv_obj_t* obj, lv_event_t event) {
 
 FallDetection::FallDetection(Pinetime::Applications::DisplayApp* app)
  : Screen(app),
- currentState {EmergencyTimerStates::Running},
+ currentState {EmergencyTimerStates::Init},
  currentEvent {EmergencyTimerEvents::Start},
  startTime {} {
 
@@ -88,51 +86,19 @@ bool FallDetection::Refresh() {
 
       const auto timeElapsed = calculateDelta(startTime, xTaskGetTickCount());
       currentTimeSeconds = convertTicksToTimeSegments(timeElapsed);
-
-      lv_label_set_text_fmt(time, "%02d", currentTimeSeconds);
-      // lv_label_set_text_fmt(msecTime, "%02d", currentTimeSeparated.hundredths);
-
-      // if (lapPressed == true) {
-      //   if (lapBuffer[1]) {
-      //     lv_label_set_text_fmt(
-      //       lapOneText, "#%2d   %2d:%02d.%02d", (lapNr - 1), lapBuffer[1]->mins, lapBuffer[1]->secs, lapBuffer[1]->hundredths);
-      //   }
-      //   if (lapBuffer[0]) {
-      //     lv_label_set_text_fmt(
-      //       lapTwoText, "#%2d   %2d:%02d.%02d", lapNr, lapBuffer[0]->mins, lapBuffer[0]->secs, lapBuffer[0]->hundredths);
-      //   }
-      //   // Reset the bool to avoid setting the text in each cycle until there is a change
-      //   lapPressed = false;
-      // }
-
-      // if (currentEvent == Events::Pause) {
-      //   // Reset the start time
-      //   startTime = 0;
-      //   // Store the current time elapsed in cache
-      //   oldTimeElapsed += timeElapsed;
-      //   currentState = States::Halted;
-      //   lv_obj_set_style_local_text_color(time, LV_LABEL_PART_MAIN, LV_STATE_DEFAULT, LV_COLOR_YELLOW);
-      //   lv_obj_set_style_local_text_color(msecTime, LV_LABEL_PART_MAIN, LV_STATE_DEFAULT, LV_COLOR_YELLOW);
-      // } else {
-      //   lv_obj_set_style_local_text_color(time, LV_LABEL_PART_MAIN, LV_STATE_DEFAULT, LV_COLOR_GREEN);
-      //   lv_obj_set_style_local_text_color(msecTime, LV_LABEL_PART_MAIN, LV_STATE_DEFAULT, LV_COLOR_GREEN);
-      // }
+      if (currentTimeSeconds < 0)
+      {
+        lv_obj_set_style_local_text_color(time, LV_LABEL_PART_MAIN, LV_STATE_DEFAULT, LV_COLOR_RED);
+        currentState = EmergencyTimerStates::Halted;
+      }
+      else
+      {
+        lv_label_set_text_fmt(time, "%02d", currentTimeSeconds);
+      }
       break;
     }
     case EmergencyTimerStates::Halted: {
-      // lv_label_set_text(txtPlayPause, Symbols::play);
-      // lv_label_set_text(txtStopLap, Symbols::stop);
-
-      // if (currentEvent == Events::Play) {
-      //   startTime = xTaskGetTickCount();
-      //   currentState = States::Running;
-      // }
-      // if (currentEvent == Events::Stop) {
-      //   currentState = States::Init;
-      //   oldTimeElapsed = 0;
-      //   lv_obj_set_style_local_text_color(time, LV_LABEL_PART_MAIN, LV_STATE_DEFAULT, LV_COLOR_GRAY);
-      //   lv_obj_set_style_local_text_color(msecTime, LV_LABEL_PART_MAIN, LV_STATE_DEFAULT, LV_COLOR_GRAY);
-      // }
+      lv_obj_set_style_local_text_color(time, LV_LABEL_PART_MAIN, LV_STATE_DEFAULT, LV_COLOR_GRAY);
       break;
     }
   }
