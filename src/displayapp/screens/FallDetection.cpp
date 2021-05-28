@@ -137,7 +137,7 @@ bool FallDetection::Refresh() {
   return running;
 }
 
-void StopWatch::cancelBtnEventHandler(lv_event_t event) {
+void FallDetection::cancelBtnEventHandler(lv_event_t event) {
   if (event == LV_EVENT_CLICKED) {
     currentEvent = EmergencyTimerEvents::Stop;
   }
