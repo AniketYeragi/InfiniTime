@@ -5,6 +5,7 @@
 #include <cstdint>
 #include "Screen.h"
 #include "Symbols.h"
+#include "components/motor/MotorController.h"
 
 #include "FreeRTOS.h"
 #include "portmacro_cmsis.h"
