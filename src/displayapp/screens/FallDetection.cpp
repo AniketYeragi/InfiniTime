@@ -36,12 +36,14 @@ static void cancel_event_handler(lv_obj_t* obj, lv_event_t event) {
 }
 
 FallDetection::FallDetection(Pinetime::Applications::DisplayApp* app,
-                              Controllers::MotorController& motorController)
+                              Controllers::MotorController& motorController,
+                              Pinetime::Components::LittleVgl& lvgl)
  : Screen(app),
  currentState {EmergencyTimerStates::Init},
  currentEvent {EmergencyTimerEvents::Start},
  startTime {},
- motorController {motorController} {
+ motorController {motorController},
+ lvgl {lvgl} {
 
   time = lv_label_create(lv_scr_act(), nullptr);
   lv_obj_set_style_local_text_font(time, LV_LABEL_PART_MAIN, LV_STATE_DEFAULT, &jetbrains_mono_76);
@@ -116,3 +118,31 @@ void FallDetection::cancelBtnEventHandler(lv_event_t event) {
   }
 }
 
+bool FallDetection::OnTouchEvent(Pinetime::Applications::TouchEvents event) {
+  switch (event) {
+    case Pinetime::Applications::TouchEvents::None:
+    break;
+    case Pinetime::Applications::TouchEvents::Tap:
+      lv_label_set_text(txtNarrative, "Tap");
+    break;
+    case Pinetime::Applications::TouchEvents::SwipeLeft:
+      lv_label_set_text(txtNarrative, "SwipeLeft");
+    break;
+    case Pinetime::Applications::TouchEvents::SwipeRight:
+      lv_label_set_text(txtNarrative, "SwipeRight");
+    break;
+    case Pinetime::Applications::TouchEvents::SwipeUp:
+      lv_label_set_text(txtNarrative, "SwipeUp");
+    break;
+    case Pinetime::Applications::TouchEvents::SwipeDown:
+      lv_label_set_text(txtNarrative, "SwipeDown");
+    break;
+    case Pinetime::Applications::TouchEvents::LongTap:
+      lv_label_set_text(txtNarrative, "LongTap");
+    break;
+    case Pinetime::Applications::TouchEvents::DoubleTap:
+      lv_label_set_text(txtNarrative, "DoubleTap");
+    break;
+  }
+  return true
+}

@@ -20,7 +20,7 @@ namespace Pinetime {
       enum class EmergencyTimerEvents { Start, Stop };
       class FallDetection : public Screen {
       public:
-        FallDetection(DisplayApp* app, Controllers::MotorController& motorController);
+        FallDetection(DisplayApp* app, Controllers::MotorController& motorController, Pinetime::Components::LittleVgl& lvgl);
 
         ~FallDetection() override;
 
@@ -28,7 +28,10 @@ namespace Pinetime {
 
         void cancelBtnEventHandler(lv_event_t event);
 
+        bool OnTouchEvent(TouchEvents event) override;
+
       private:
+        Pinetime::Components::LittleVgl& lvgl;
         Controllers::MotorController& motorController;
         EmergencyTimerStates currentState;
         EmergencyTimerEvents currentEvent;
