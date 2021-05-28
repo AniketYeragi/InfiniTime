@@ -90,6 +90,7 @@ bool FallDetection::Refresh() {
       if (currentTimeSeconds < 0)
       {
         lv_obj_set_style_local_text_color(time, LV_LABEL_PART_MAIN, LV_STATE_DEFAULT, LV_COLOR_RED);
+        lv_label_set_text(txtNarrative, "Emergency activated");
         currentState = EmergencyTimerStates::Halted;
       }
       else
