@@ -94,6 +94,7 @@ bool FallDetection::Refresh() {
         lv_obj_set_style_local_text_color(time, LV_LABEL_PART_MAIN, LV_STATE_DEFAULT, LV_COLOR_RED);
         lv_label_set_text(txtNarrative, "Emergency activated");
         currentState = EmergencyTimerStates::Halted;
+        motorController.SetDuration(120);
       }
       else
       {
@@ -111,6 +112,7 @@ bool FallDetection::Refresh() {
 void FallDetection::cancelBtnEventHandler(lv_event_t event) {
   if (event == LV_EVENT_CLICKED) {
     currentEvent = EmergencyTimerEvents::Stop;
+    motorController.SetDuration(30);
   }
 }
 

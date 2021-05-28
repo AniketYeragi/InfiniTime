@@ -29,6 +29,7 @@ namespace Pinetime {
         void cancelBtnEventHandler(lv_event_t event);
 
       private:
+        Controllers::MotorController& motorController;
         EmergencyTimerStates currentState;
         EmergencyTimerEvents currentEvent;
         TickType_t startTime;
