@@ -45,6 +45,8 @@ FallDetection::FallDetection(Pinetime::Applications::DisplayApp* app,
  motorController {motorController},
  lvgl {lvgl} {
 
+  app->SetTouchMode(DisplayApp::TouchModes::Polling);
+
   time = lv_label_create(lv_scr_act(), nullptr);
   lv_obj_set_style_local_text_font(time, LV_LABEL_PART_MAIN, LV_STATE_DEFAULT, &jetbrains_mono_76);
   lv_obj_set_style_local_text_color(time, LV_LABEL_PART_MAIN, LV_STATE_DEFAULT, LV_COLOR_GRAY);
@@ -72,6 +74,7 @@ FallDetection::FallDetection(Pinetime::Applications::DisplayApp* app,
 }
 
 FallDetection::~FallDetection() {
+  app->SetTouchMode(DisplayApp::TouchModes::Gestures);
   lv_obj_clean(lv_scr_act());
 }
 
