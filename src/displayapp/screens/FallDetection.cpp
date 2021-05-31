@@ -56,7 +56,7 @@ FallDetection::FallDetection(Pinetime::Applications::DisplayApp* app,
   lv_label_set_long_mode(txtNarrative, LV_LABEL_LONG_BREAK);
   lv_obj_set_width(txtNarrative, LV_HOR_RES);
   lv_obj_set_style_local_text_color(txtNarrative, LV_LABEL_PART_MAIN, LV_STATE_DEFAULT, LV_COLOR_RED);
-  lv_label_set_text(txtNarrative, "Emergency button");
+  lv_label_set_text(txtNarrative, "Activating emergency!");
   lv_label_set_align(txtNarrative, LV_LABEL_ALIGN_CENTER);
   lv_obj_align(txtNarrative, nullptr, LV_ALIGN_CENTER, 0, 60);
 
@@ -64,7 +64,7 @@ FallDetection::FallDetection(Pinetime::Applications::DisplayApp* app,
   btnCancel->user_data = this;
   lv_obj_set_event_cb(btnCancel, cancel_event_handler);
   lv_obj_align(btnCancel, lv_scr_act(), LV_ALIGN_IN_TOP_MID, 0, 10);
-  lv_obj_set_height(btnCancel, 40);
+  lv_obj_set_height(btnCancel, 60);
   txtCancel = lv_label_create(btnCancel, nullptr);
   lv_label_set_text(txtCancel, Symbols::phoneSlash);
   lv_obj_set_style_local_text_color(txtCancel, LV_LABEL_PART_MAIN, LV_STATE_DEFAULT, LV_COLOR_RED);
@@ -88,7 +88,9 @@ bool FallDetection::Refresh() {
     case EmergencyTimerStates::Running: {
       if (currentEvent == EmergencyTimerEvents::Stop) {
         lv_obj_set_style_local_text_color(time, LV_LABEL_PART_MAIN, LV_STATE_DEFAULT, LV_COLOR_YELLOW);
-        currentState = EmergencyTimerStates::Halted;
+        lv_obj_set_style_local_text_color(txtNarrative, LV_LABEL_PART_MAIN, LV_STATE_DEFAULT, LV_COLOR_WHITE);
+        lv_label_set_text(txtNarrative, "Activation canceled!");
+        currentState = EmergencyTimerStates::Exit;
         break;
       }
 
@@ -97,7 +99,7 @@ bool FallDetection::Refresh() {
       if (currentTimeSeconds < 0)
       {
         lv_obj_set_style_local_text_color(time, LV_LABEL_PART_MAIN, LV_STATE_DEFAULT, LV_COLOR_RED);
-        lv_label_set_text(txtNarrative, "Emergency activated");
+        lv_label_set_text(txtNarrative, "Calling emergency number");
         currentState = EmergencyTimerStates::Halted;
         motorController.SetDuration(120);
       }
@@ -108,6 +110,10 @@ bool FallDetection::Refresh() {
       break;
     }
     case EmergencyTimerStates::Halted: {
+      break;
+    }
+    case EmergencyTimerStates::Exit: {
+      ~FallDetection();
       break;
     }
   }

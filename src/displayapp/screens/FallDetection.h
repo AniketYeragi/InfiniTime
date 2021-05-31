@@ -16,7 +16,7 @@ namespace Pinetime {
   }
   namespace Applications {
     namespace Screens {
-      enum class EmergencyTimerStates { Init, Running, Halted };
+      enum class EmergencyTimerStates { Init, Running, Halted, Exit };
       enum class EmergencyTimerEvents { Start, Stop };
       class FallDetection : public Screen {
       public:
