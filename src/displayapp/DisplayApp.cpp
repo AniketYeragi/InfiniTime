@@ -152,10 +152,8 @@ void DisplayApp::Refresh() {
       case Messages::EmergencyButton:
         lcd.DisplayOn();
         brightnessController.Restore();
+        state = States::Running;
         LoadApp(Apps::FallDetection, DisplayApp::FullRefreshDirections::None);
-        break;
-      case Messages::TouchInt:
-        // LoadApp(Apps::FallDetection, DisplayApp::FullRefreshDirections::None);
         break;
       case Messages::TouchEvent: {
         auto gesture = OnTouchEvent();
