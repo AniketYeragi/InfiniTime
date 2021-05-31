@@ -50,7 +50,7 @@ FallDetection::FallDetection(Pinetime::Applications::DisplayApp* app,
   lv_obj_set_style_local_text_color(time, LV_LABEL_PART_MAIN, LV_STATE_DEFAULT, LV_COLOR_GRAY);
   lv_label_set_text(time, "5");
   lv_label_set_align(time, LV_LABEL_ALIGN_CENTER);
-  lv_obj_align(time, lv_scr_act(), LV_ALIGN_IN_TOP_MID, 0, 60);
+  lv_obj_align(time, lv_scr_act(), LV_ALIGN_IN_TOP_MID, 0, 80);
 
   txtNarrative = lv_label_create(lv_scr_act(), nullptr);
   lv_label_set_long_mode(txtNarrative, LV_LABEL_LONG_BREAK);
@@ -67,6 +67,7 @@ FallDetection::FallDetection(Pinetime::Applications::DisplayApp* app,
   lv_obj_set_height(btnCancel, 40);
   txtCancel = lv_label_create(btnCancel, nullptr);
   lv_label_set_text(txtCancel, Symbols::phoneSlash);
+  lv_obj_set_style_local_text_color(txtCancel, LV_LABEL_PART_MAIN, LV_STATE_DEFAULT, LV_COLOR_RED);
 
   motorController.SetDuration(60);
 }
@@ -121,31 +122,31 @@ void FallDetection::cancelBtnEventHandler(lv_event_t event) {
 }
 
 bool FallDetection::OnTouchEvent(Pinetime::Applications::TouchEvents event) {
-  switch (event) {
-    case Pinetime::Applications::TouchEvents::None:
-    lv_label_set_text(txtNarrative, "None");
-    break;
-    case Pinetime::Applications::TouchEvents::Tap:
-      lv_label_set_text(txtNarrative, "Tap");
-    break;
-    case Pinetime::Applications::TouchEvents::SwipeLeft:
-      lv_label_set_text(txtNarrative, "SwipeLeft");
-    break;
-    case Pinetime::Applications::TouchEvents::SwipeRight:
-      lv_label_set_text(txtNarrative, "SwipeRight");
-    break;
-    case Pinetime::Applications::TouchEvents::SwipeUp:
-      lv_label_set_text(txtNarrative, "SwipeUp");
-    break;
-    case Pinetime::Applications::TouchEvents::SwipeDown:
-      lv_label_set_text(txtNarrative, "SwipeDown");
-    break;
-    case Pinetime::Applications::TouchEvents::LongTap:
-      lv_label_set_text(txtNarrative, "LongTap");
-    break;
-    case Pinetime::Applications::TouchEvents::DoubleTap:
-      lv_label_set_text(txtNarrative, "DoubleTap");
-    break;
-  }
+  // switch (event) {
+  //   case Pinetime::Applications::TouchEvents::None:
+  //   lv_label_set_text(txtNarrative, "None");
+  //   break;
+  //   case Pinetime::Applications::TouchEvents::Tap:
+  //     lv_label_set_text(txtNarrative, "Tap");
+  //   break;
+  //   case Pinetime::Applications::TouchEvents::SwipeLeft:
+  //     lv_label_set_text(txtNarrative, "SwipeLeft");
+  //   break;
+  //   case Pinetime::Applications::TouchEvents::SwipeRight:
+  //     lv_label_set_text(txtNarrative, "SwipeRight");
+  //   break;
+  //   case Pinetime::Applications::TouchEvents::SwipeUp:
+  //     lv_label_set_text(txtNarrative, "SwipeUp");
+  //   break;
+  //   case Pinetime::Applications::TouchEvents::SwipeDown:
+  //     lv_label_set_text(txtNarrative, "SwipeDown");
+  //   break;
+  //   case Pinetime::Applications::TouchEvents::LongTap:
+  //     lv_label_set_text(txtNarrative, "LongTap");
+  //   break;
+  //   case Pinetime::Applications::TouchEvents::DoubleTap:
+  //     lv_label_set_text(txtNarrative, "DoubleTap");
+  //   break;
+  // }
   return true;
 }

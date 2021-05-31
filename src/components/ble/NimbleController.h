@@ -73,7 +73,7 @@ namespace Pinetime {
       };
 
       uint16_t connHandle();
-      uint8_t myArray[4] = {1,2,3,4};
+      uint8_t myArray[4] = {0x59,0x00,0x00,0x00};
 
     private:
       static constexpr const char* deviceName = "InfiniTime";
