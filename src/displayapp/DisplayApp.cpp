@@ -157,6 +157,7 @@ void DisplayApp::Refresh() {
         brightnessController.Restore();
         state = States::Running;
         LoadApp(Apps::FallDetection, DisplayApp::FullRefreshDirections::None);
+        break;
       case Messages::TimerDone:
         if (currentApp == Apps::Timer) {
           auto *timer = dynamic_cast<Screens::Timer*>(currentScreen.get());
