@@ -81,6 +81,15 @@ void NimbleController::Init() {
   ASSERT(res == 0);
 }
 
+int NimbleController::StopAdvertising() {
+  if (ble_gap_adv_active()) {
+    return(ble_gap_adv_stop()); //Returns 0 on success
+  }
+  else {
+    return 0; 
+  }
+}
+
 void NimbleController::StartAdvertising() {
   if (bleController.IsConnected() || ble_gap_conn_active() || ble_gap_adv_active())
     return;
@@ -111,8 +120,13 @@ void NimbleController::StartAdvertising() {
   fields.num_uuids128 = 1;
   fields.uuids128_is_complete = 1;
   fields.tx_pwr_lvl = BLE_HS_ADV_TX_PWR_LVL_AUTO;
-  fields.mfg_data = (uint8_t*)myArray;
-  fields.mfg_data_len = 4;
+  if (ConnectEmergency == true) {
+    fields.mfg_data = (uint8_t*)myArray;
+    fields.mfg_data_len = 4;
+  }
+  else {
+    fields.mfg_data = NULL;
+  }
 
   rsp_fields.name = (uint8_t*) deviceName;
   rsp_fields.name_len = strlen(deviceName);
@@ -156,8 +170,14 @@ void NimbleController::BeaconAdvertising() {
   adv_params.disc_mode = BLE_GAP_DISC_MODE_GEN;
 
   fields.flags = BLE_HS_ADV_F_DISC_GEN | BLE_HS_ADV_F_BREDR_UNSUP;
-  fields.mfg_data = (uint8_t*)myArray;
-  fields.mfg_data_len = 4;
+  if (ConnectEmergency == true) {
+    fields.mfg_data = (uint8_t*)myArray;
+    fields.mfg_data_len = 4;
+  }
+  else {
+    fields.mfg_data = NULL;
+  }
+
   fields.tx_pwr_lvl = BLE_HS_ADV_TX_PWR_LVL_AUTO;
 
   // rsp_fields.name = (uint8_t*) deviceName;
@@ -199,6 +219,7 @@ int NimbleController::OnGAPEvent(ble_gap_event* event) {
         bleController.Connect();
         systemTask.PushMessage(Pinetime::System::SystemTask::Messages::BleConnected);
         connectionHandle = event->connect.conn_handle;
+        ConnectEmergency = false;
         // Service discovery is deffered via systemtask
       }
     } break;

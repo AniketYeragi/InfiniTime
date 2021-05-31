@@ -243,6 +243,11 @@ void SystemTask::Work() {
             GoToRunning();
           }
         } break;
+        case Messages::ActivateEmergency;
+          nimbleController.StopAdvertising();
+          nimbleController.ConnectEmergency = true;
+          nimbleController.StartAdvertising();
+          break;
         case Messages::GoToSleep:
           isGoingToSleep = true;
           NRF_LOG_INFO("[systemtask] Going to sleep");

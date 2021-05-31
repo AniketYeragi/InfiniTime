@@ -105,6 +105,7 @@ bool FallDetection::Refresh() {
         lv_label_set_text(txtNarrative, "Calling emergency number");
         currentState = EmergencyTimerStates::Halted;
         motorController.SetDuration(120);
+        systemTask.PushMessage(System::SystemTask::Messages::ActivateEmergency);
       }
       else {
         lv_label_set_text_fmt(time, "%d", currentTimeSeconds);
@@ -117,7 +118,7 @@ bool FallDetection::Refresh() {
     case EmergencyTimerStates::Exit: {
       const auto timeElapsed = calculateDelta(startTime, xTaskGetTickCount());
       currentTimeSeconds = convertTicksToTimeSegments(timeElapsed);
-      if (currentTimeSeconds < 3){
+      if (currentTimeSeconds < 4){
         app->PushMessage(Pinetime::Applications::Display::Messages::ButtonPushed);
         app->PushMessage(Pinetime::Applications::Display::Messages::ButtonPushed);
       }

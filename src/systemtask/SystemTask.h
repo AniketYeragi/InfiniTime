@@ -56,7 +56,8 @@ namespace Pinetime {
         EnableSleeping,
         DisableSleeping,
         OnNewDay,
-        OnChargingEvent
+        OnChargingEvent,
+        ActivateEmergency
       };
 
       SystemTask(Drivers::SpiMaster& spi,
