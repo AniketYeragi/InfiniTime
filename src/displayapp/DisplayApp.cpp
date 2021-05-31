@@ -154,6 +154,9 @@ void DisplayApp::Refresh() {
         brightnessController.Restore();
         LoadApp(Apps::FallDetection, DisplayApp::FullRefreshDirections::None);
         break;
+      case Messages::TouchInt:
+        // LoadApp(Apps::FallDetection, DisplayApp::FullRefreshDirections::None);
+        break;
       case Messages::TouchEvent: {
         auto gesture = OnTouchEvent();
         if (gesture == TouchEvents::LongTap)
@@ -180,7 +183,7 @@ void DisplayApp::Refresh() {
               default:
                 break;
             }
-          } else if (returnTouchEvent == gesture) {
+          } else if (returnTouchEvent == gesture && gesture != TouchEvents::LongTap) {
             LoadApp(returnToApp, returnDirection);
           }
         }

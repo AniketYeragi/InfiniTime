@@ -385,6 +385,8 @@ void SystemTask::GoToRunning() {
 }
 
 void SystemTask::OnTouchEvent() {
+  motorController.SetDuration(20);
+  displayApp->PushMessage(Pinetime::Applications::Display::Messages::TouchInt);
   if (isGoingToSleep)
     return;
   if (!isSleeping) {

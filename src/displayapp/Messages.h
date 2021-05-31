@@ -13,7 +13,8 @@ namespace Pinetime {
         NewNotification,
         BleFirmwareUpdateStarted,
         UpdateTimeOut,
-        EmergencyButton
+        EmergencyButton,
+        TouchInt
       };
     }
   }
