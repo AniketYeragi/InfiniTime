@@ -6,7 +6,7 @@
 #include "Screen.h"
 #include "Symbols.h"
 #include "components/motor/MotorController.h"
-#include "Messages.h"
+#include "displayapp/Messages.h"
 
 #include "FreeRTOS.h"
 #include "portmacro_cmsis.h"
