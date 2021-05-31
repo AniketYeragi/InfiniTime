@@ -3,6 +3,7 @@
 #include "../LittleVgl.h"
 #include "FreeRTOSConfig.h"
 #include "task.h"
+#include "systemtask/SystemTask.h"
 
 using namespace Pinetime::Applications::Screens;
 
