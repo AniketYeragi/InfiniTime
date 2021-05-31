@@ -116,7 +116,7 @@ bool FallDetection::Refresh() {
       break;
     }
     case EmergencyTimerStates::Exit: {
-      app.PushMessage(Pinetime::Applications::Display::Messages::ButtonPushed);
+      app->PushMessage(Pinetime::Applications::Display::Messages::ButtonPushed);
       break;
     }
   }
