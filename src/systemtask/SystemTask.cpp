@@ -207,7 +207,7 @@ void SystemTask::Work() {
           {
             displayApp->PushMessage(Pinetime::Applications::Display::Messages::EmergencyButton);
             wokeUpEmergency = false;
-            motorController.SetDuration(60);
+            // motorController.SetDuration(60);
           }
           else
           {
@@ -385,7 +385,7 @@ void SystemTask::GoToRunning() {
 }
 
 void SystemTask::OnTouchEvent() {
-  motorController.SetDuration(20);
+  // motorController.SetDuration(20);
   if (isGoingToSleep)
     return;
   if (!isSleeping) {

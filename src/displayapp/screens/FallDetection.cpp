@@ -37,12 +37,14 @@ static void cancel_event_handler(lv_obj_t* obj, lv_event_t event) {
 
 FallDetection::FallDetection(Pinetime::Applications::DisplayApp* app,
                               Controllers::MotorController& motorController,
+                              System::SystemTask& systemTask,
                               Pinetime::Components::LittleVgl& lvgl)
  : Screen(app),
  currentState {EmergencyTimerStates::Init},
  currentEvent {EmergencyTimerEvents::Start},
  startTime {},
  motorController {motorController},
+ systemTask {systemTask},
  lvgl {lvgl} {
 
   time = lv_label_create(lv_scr_act(), nullptr);
@@ -58,7 +60,7 @@ FallDetection::FallDetection(Pinetime::Applications::DisplayApp* app,
   lv_obj_set_style_local_text_color(txtNarrative, LV_LABEL_PART_MAIN, LV_STATE_DEFAULT, LV_COLOR_RED);
   lv_label_set_text(txtNarrative, "Activating emergency!");
   lv_label_set_align(txtNarrative, LV_LABEL_ALIGN_CENTER);
-  lv_obj_align(txtNarrative, nullptr, LV_ALIGN_CENTER, 0, 60);
+  lv_obj_align(txtNarrative, nullptr, LV_ALIGN_CENTER, 0, 70);
 
   btnCancel = lv_btn_create(lv_scr_act(), nullptr);
   btnCancel->user_data = this;
@@ -113,7 +115,7 @@ bool FallDetection::Refresh() {
       break;
     }
     case EmergencyTimerStates::Exit: {
-      lv_obj_clean(lv_scr_act());
+      systemTask.PushMessage(System::SystemTask::Messages::GoToSleep);
       break;
     }
   }

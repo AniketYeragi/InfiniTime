@@ -6,6 +6,7 @@
 #include "Screen.h"
 #include "Symbols.h"
 #include "components/motor/MotorController.h"
+#include "Messages.h"
 
 #include "FreeRTOS.h"
 #include "portmacro_cmsis.h"
@@ -20,7 +21,10 @@ namespace Pinetime {
       enum class EmergencyTimerEvents { Start, Stop };
       class FallDetection : public Screen {
       public:
-        FallDetection(DisplayApp* app, Controllers::MotorController& motorController, Pinetime::Components::LittleVgl& lvgl);
+        FallDetection(DisplayApp* app,
+                      Controllers::MotorController& motorController,
+                      System::SystemTask& systemTask,
+                      Pinetime::Components::LittleVgl& lvgl);
 
         ~FallDetection() override;
 
@@ -33,6 +37,7 @@ namespace Pinetime {
       private:
         Pinetime::Components::LittleVgl& lvgl;
         Controllers::MotorController& motorController;
+        Pinetime::System::SystemTask& systemTask;
         EmergencyTimerStates currentState;
         EmergencyTimerEvents currentEvent;
         TickType_t startTime;
