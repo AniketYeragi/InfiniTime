@@ -349,7 +349,7 @@ void DisplayApp::LoadApp(Apps app, DisplayApp::FullRefreshDirections direction) 
       currentScreen = std::make_unique<Screens::Steps>(this, motionController, settingsController);
       break;
     case Apps::FallDetection:
-      currentScreen = std::make_unique<Screens::FallDetection>(this, motorController, lvgl);
+      currentScreen = std::make_unique<Screens::FallDetection>(this, motorController, systemTask, lvgl);
       break;
   }
   currentApp = app;
