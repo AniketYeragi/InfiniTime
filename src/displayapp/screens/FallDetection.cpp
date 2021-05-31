@@ -113,7 +113,7 @@ bool FallDetection::Refresh() {
       break;
     }
     case EmergencyTimerStates::Exit: {
-      ~FallDetection();
+      lv_obj_clean(lv_scr_act());
       break;
     }
   }
