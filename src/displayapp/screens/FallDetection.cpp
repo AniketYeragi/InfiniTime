@@ -94,20 +94,19 @@ bool FallDetection::Refresh() {
         lv_obj_set_style_local_text_color(txtNarrative, LV_LABEL_PART_MAIN, LV_STATE_DEFAULT, LV_COLOR_WHITE);
         lv_label_set_text(txtNarrative, "Activation canceled!");
         currentState = EmergencyTimerStates::Exit;
+        startTime = xTaskGetTickCount();
         break;
       }
 
       const auto timeElapsed = calculateDelta(startTime, xTaskGetTickCount());
       currentTimeSeconds = convertTicksToTimeSegments(timeElapsed);
-      if (currentTimeSeconds < 0)
-      {
+      if (currentTimeSeconds < 0) {
         lv_obj_set_style_local_text_color(time, LV_LABEL_PART_MAIN, LV_STATE_DEFAULT, LV_COLOR_RED);
         lv_label_set_text(txtNarrative, "Calling emergency number");
         currentState = EmergencyTimerStates::Halted;
         motorController.SetDuration(120);
       }
-      else
-      {
+      else {
         lv_label_set_text_fmt(time, "%d", currentTimeSeconds);
       }
       break;
@@ -116,7 +115,12 @@ bool FallDetection::Refresh() {
       break;
     }
     case EmergencyTimerStates::Exit: {
-      app->PushMessage(Pinetime::Applications::Display::Messages::ButtonPushed);
+      const auto timeElapsed = calculateDelta(startTime, xTaskGetTickCount());
+      currentTimeSeconds = convertTicksToTimeSegments(timeElapsed);
+      if (currentTimeSeconds < 3){
+        app->PushMessage(Pinetime::Applications::Display::Messages::ButtonPushed);
+        app->PushMessage(Pinetime::Applications::Display::Messages::ButtonPushed);
+      }
       break;
     }
   }
