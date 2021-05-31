@@ -150,6 +150,8 @@ void DisplayApp::Refresh() {
         LoadApp(Apps::NotificationsPreview, DisplayApp::FullRefreshDirections::Down);
         break;
       case Messages::EmergencyButton:
+        lcd.DisplayOn();
+        brightnessController.Restore();
         LoadApp(Apps::FallDetection, DisplayApp::FullRefreshDirections::None);
         break;
       case Messages::TouchEvent: {

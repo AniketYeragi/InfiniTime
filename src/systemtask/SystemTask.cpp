@@ -203,16 +203,21 @@ void SystemTask::Work() {
           spiNorFlash.Wakeup();
           lcd.Wakeup();
 
-          displayApp->PushMessage(Pinetime::Applications::Display::Messages::GoToRunning);
-          displayApp->PushMessage(Pinetime::Applications::Display::Messages::UpdateBatteryLevel);
-          heartRateApp->PushMessage(Pinetime::Applications::HeartRateTask::Messages::WakeUp);
-
           if (wokeUpEmergency == true)
           {
             displayApp->PushMessage(Pinetime::Applications::Display::Messages::EmergencyButton);
             wokeUpEmergency = false;
             motorController.SetDuration(60);
           }
+          else
+          {
+          displayApp->PushMessage(Pinetime::Applications::Display::Messages::GoToRunning);
+          }
+          
+          displayApp->PushMessage(Pinetime::Applications::Display::Messages::UpdateBatteryLevel);
+          heartRateApp->PushMessage(Pinetime::Applications::HeartRateTask::Messages::WakeUp);
+
+
           
           isSleeping = false;
           isWakingUp = false;
