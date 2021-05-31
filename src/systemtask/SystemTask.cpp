@@ -243,7 +243,7 @@ void SystemTask::Work() {
             GoToRunning();
           }
         } break;
-        case Messages::ActivateEmergency;
+        case Messages::ActivateEmergency:
           nimbleController.StopAdvertising();
           nimbleController.ConnectEmergency = true;
           nimbleController.StartAdvertising();
