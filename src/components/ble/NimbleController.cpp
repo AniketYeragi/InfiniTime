@@ -126,9 +126,10 @@ void NimbleController::StartAdvertising() {
     {
       myArray[3] = heartRateController2.HeartRate();
     }
-    catch(const std::exception& e)
+    catch(...)
     {
       myArray[3] = 0xfe;
+      throw;
     }   
     fields.mfg_data = (uint8_t*)myArray;
     fields.mfg_data_len = 4;
