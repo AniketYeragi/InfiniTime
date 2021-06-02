@@ -75,7 +75,7 @@ namespace Pinetime {
       };
 
       uint16_t connHandle();
-      uint8_t myArray[4] = {0x59,0x00,0x00,heartRateController2.HeartRate()};
+      uint8_t myArray[4] = {0x59,0x00,0x00,0x00};
       bool ConnectEmergency = false;
 
     private:
