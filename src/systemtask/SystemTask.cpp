@@ -251,6 +251,7 @@ void SystemTask::Work() {
         case Messages::ActivateEmergency:
           nimbleController.StopAdvertising();
           nimbleController.ConnectEmergency = true;
+          nimbleController.emergencyCounter += 1;
           nimbleController.StartAdvertising();
           break;
         case Messages::GoToSleep:
