@@ -75,7 +75,7 @@ namespace Pinetime {
       };
 
       uint16_t connHandle();
-      uint8_t myArray[4] = {0x59,0x00,0x00,heartRateController.HeartRate()};
+      uint8_t myArray[4] = {0x59,0x00,0x00,heartRateController2.HeartRate()};
       bool ConnectEmergency = false;
 
     private:
@@ -98,7 +98,7 @@ namespace Pinetime {
       BatteryInformationService batteryInformationService;
       ImmediateAlertService immediateAlertService;
       HeartRateService heartRateService;
-      HeartRateController& heartRateController;
+      HeartRateController& heartRateController2;
 
       uint8_t addrType; // 1 = Random, 0 = PUBLIC
       uint16_t connectionHandle = 0;
