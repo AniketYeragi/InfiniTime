@@ -98,6 +98,7 @@ namespace Pinetime {
       BatteryInformationService batteryInformationService;
       ImmediateAlertService immediateAlertService;
       HeartRateService heartRateService;
+      HeartRateController heartRateController;
 
       uint8_t addrType; // 1 = Random, 0 = PUBLIC
       uint16_t connectionHandle = 0;
