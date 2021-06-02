@@ -256,7 +256,7 @@ void SystemTask::Work() {
           break;
         case Messages::Advertise:
           nimbleController.StartAdvertising();
-          break
+          break;
         case Messages::GoToSleep:
           isGoingToSleep = true;
           NRF_LOG_INFO("[systemtask] Going to sleep");
