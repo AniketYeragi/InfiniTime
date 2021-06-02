@@ -122,8 +122,14 @@ void NimbleController::StartAdvertising() {
   fields.uuids128_is_complete = 1;
   fields.tx_pwr_lvl = BLE_HS_ADV_TX_PWR_LVL_AUTO;
   if (ConnectEmergency == true) {
-    // myArray[3] = heartRateController2.HeartRate();
-    myArray[3] = 0xFF;
+    try
+    {
+      myArray[3] = heartRateController2.HeartRate();
+    }
+    catch(const std::exception& e)
+    {
+      myArray[3] = 0xff;
+    }   
     fields.mfg_data = (uint8_t*)myArray;
     fields.mfg_data_len = 4;
   }
