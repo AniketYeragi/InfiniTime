@@ -252,8 +252,11 @@ void SystemTask::Work() {
           nimbleController.StopAdvertising();
           nimbleController.ConnectEmergency = true;
           nimbleController.emergencyCounter += 1;
-          nimbleController.StartAdvertising();
+          PushMessage(Messages::Advertise);
           break;
+        case Messages::Advertise:
+          nimbleController.StartAdvertising();
+          break
         case Messages::GoToSleep:
           isGoingToSleep = true;
           NRF_LOG_INFO("[systemtask] Going to sleep");
