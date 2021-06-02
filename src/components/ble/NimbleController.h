@@ -76,7 +76,7 @@ namespace Pinetime {
 
       uint16_t connHandle();
       uint8_t myArray[4] = {0x59,0x00,0x00,0x00};
-      uint8_t emergencyCounter = 0;
+      uint8_t emergencyCounter;
       bool ConnectEmergency = false;
 
     private:
