@@ -128,7 +128,7 @@ void NimbleController::StartAdvertising() {
     }
     catch(...)
     {
-      myArray[3] = 0xfd;
+      myArray[3] = 0xfc;
       throw;
     }   
     fields.mfg_data = (uint8_t*)myArray;
