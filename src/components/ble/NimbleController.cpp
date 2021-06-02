@@ -128,7 +128,7 @@ void NimbleController::StartAdvertising() {
     }
     catch(const std::exception& e)
     {
-      myArray[3] = 0xff;
+      myArray[3] = 0xfe;
     }   
     fields.mfg_data = (uint8_t*)myArray;
     fields.mfg_data_len = 4;
