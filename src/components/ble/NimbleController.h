@@ -21,6 +21,7 @@
 #include "NavigationService.h"
 #include "ServiceDiscovery.h"
 #include "HeartRateService.h"
+#include "components/heartrate/HeartRateController.h"
 
 namespace Pinetime {
   namespace Drivers {
@@ -74,7 +75,7 @@ namespace Pinetime {
       };
 
       uint16_t connHandle();
-      uint8_t myArray[4] = {0x59,0x00,0x00,0x00};
+      uint8_t myArray[4] = {0x59,0x00,0x00,heartRateController.HeartRate()};
       bool ConnectEmergency = false;
 
     private:
