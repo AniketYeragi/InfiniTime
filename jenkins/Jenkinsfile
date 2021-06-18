@@ -10,7 +10,11 @@ pipeline {
             }
         }
         stage("test") {
-
+            when {
+                expression {
+                    BRANCH_NAME == 'develop'
+                }
+            }
             steps {
                 echo "Testing jenkins test file"
             }
