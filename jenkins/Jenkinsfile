@@ -5,22 +5,4 @@ pipeline {
         filename 'docker/Dockerfile'
         }
     }
-    stages {
-        stage("build") {
-
-            steps {
-                echo "building jenkins test file"
-            }
-        }
-        stage("test") {
-            when {
-                expression {
-                    BRANCH_NAME == 'develop'
-                }
-            }
-            steps {
-                echo "Testing jenkins test file"
-            }
-        }
-    }
 }
