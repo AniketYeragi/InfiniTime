@@ -3,6 +3,7 @@ pipeline {
     agent {
         dockerfile {
         filename 'docker/Dockerfile'
+        }
     }
 
     stages {
