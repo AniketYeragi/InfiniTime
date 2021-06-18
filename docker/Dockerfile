@@ -45,4 +45,4 @@ RUN groupadd --system --gid $PGID infinitime && useradd --system --uid $PUID --g
 USER infinitime:infinitime
 ENV SOURCES_DIR /sources
 CMD ["/opt/build.sh"]
-RUN bash -c "/opt/build.sh;"
+#RUN bash -c "/opt/build.sh;"
