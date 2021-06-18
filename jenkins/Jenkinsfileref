@@ -1,0 +1,67 @@
+def giteaIssueBody = $/
+    {
+      "title": "Job ${env.JOB_NAME} (${env.BUILD_NUMBER}) has failed.",
+      "body": "Please go to ${env.RUN_DISPLAY_URL} and verify the build"
+    }
+/$
+
+pipeline {
+  options {
+      timeout(time: 1, unit: 'HOURS')
+      buildDiscarder(logRotator(numToKeepStr:'10'))
+  }
+  agent {
+    dockerfile {
+      filename 'jenkins/Dockerfile'
+      args '''-v /mnt/data/docker-data/jenkins_data_m2/.m2/:/tmp/maven/.m2
+              --add-host blnvgit01.nc-group.net:10.20.80.130'''
+    }
+  }
+  
+  triggers {
+    GenericTrigger(
+     genericVariables: [
+      [key: 'branch', value: '$.ref'],
+      [key: 'pusher', value: '$.pusher.login']
+     ],
+     
+     causeString: '$pusher pushed to $branch',
+     
+     token: 'mcu_dut',
+     
+     printContributedVariables: true,
+     printPostContent: true,
+     
+     silentResponse: false,
+    
+     regexpFilterText: '$branch',
+     regexpFilterExpression: 'refs/heads/' + BRANCH_NAME
+    )
+  }
+  
+  stages {
+    stage('Test and Build') {
+      steps {
+        dir(path: 'tycho.com.ncsystem.aggregator') {
+          sh '''
+                Xorg :0 &
+	              mvn -B clean verify --fail-at-end -s /usr/share/maven/ref/settings.xml -Duser.home=/tmp/maven
+	        '''
+        }
+      }
+    }
+  }
+
+  post {
+    always {
+      junit '*/target/surefire-reports/*.xml'
+    }
+    regression {
+      // Should POST a new issue as user Jenkins
+      // HTTP Request Plugin must be installed
+      httpRequest authentication: '9005328c0c100d9141eb02433951afc8d89a3b82', httpMode: 'POST', requestBody: giteaIssueBody, responseHandle: 'NONE',
+      acceptType: 'APPLICATION_JSON', contentType: 'APPLICATION_JSON',
+      url: 'https://blnvgit01.nc-group.net/gitea/api/v1/repos/NC-SYSTEMS_TMS/mcu_dut/issues'
+    }
+  }
+}
