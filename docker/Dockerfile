@@ -28,7 +28,7 @@ RUN pip3 install adafruit-nrfutil
 RUN pip3 install -Iv cryptography==3.3
 
 # build.sh knows how to compile
-COPY build.sh /opt/
+COPY docker/build.sh /opt/
 
 # Lets get each in a separate docker layer for better downloads
 # GCC
