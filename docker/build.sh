@@ -32,7 +32,9 @@ main() {
   CmakeGenerate
   CmakeBuild $target
   BUILD_RESULT=$? 
+  echo "echoing build.sh"
   if [ "$DISABLE_POSTBUILD" != "true" -a "$BUILD_RESULT" == 0 ]; then
+    echo "starting post build"
     source "$BUILD_DIR/post_build.sh"
   fi
 }
