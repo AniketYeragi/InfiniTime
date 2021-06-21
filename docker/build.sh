@@ -22,6 +22,7 @@ main() {
   local target="$1"
 
   mkdir -p "$TOOLS_DIR"
+  mkdir -p "$SOURCES_DIR"
   mkdir -p "$BUILD_DIR"
   
   [[ ! -d "$TOOLS_DIR/$GCC_ARM_VER" ]] && GetGcc
