@@ -42,7 +42,7 @@ RUN bash -c "source /opt/build.sh; GetMcuBoot;"
 #ARG PUID=1000
 #ARG PGID=1000
 #RUN groupadd --system --gid $PGID infinitime && useradd --system --uid $PUID --gid $PGID infinitime
-RUN groupadd --system infinitime && useradd --system --gid $PGID infinitime
+RUN groupadd --system infinitime && useradd --system infinitime
 
 USER infinitime:infinitime
 ENV SOURCES_DIR /sources

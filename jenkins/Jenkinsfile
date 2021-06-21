@@ -7,8 +7,13 @@ pipeline {
     }
     stages {
         stage("build") {
+            when {
+                expression {
+                    BRANCH_NAME == 'master'
+                }
+            }
             steps {
-                sh '''/opt/build.sh
+                sh '''source /opt/build.sh
                 '''
             }
         }
