@@ -21,14 +21,14 @@ MACHINE="$(uname -m)"
 main() {
   local target="$1"
 
-  ls -l /var/lib/jenkins/workspace/Test_develop
-
   mkdir -p "$TOOLS_DIR"
   mkdir -p "$SOURCES_DIR"
 
   git clone https://blnvgit01.nc-group.net/gitea/Aniket.Yeragi/Pinetime_watch.git
 
   mkdir -p "$BUILD_DIR"
+
+  ls -l /var/lib/jenkins/workspace/Test_develop
 
   echo "Test echo1"
   
