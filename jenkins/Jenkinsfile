@@ -19,10 +19,11 @@ pipeline {
         }
         stage("test copying files") {
             steps {
-                def customImage = docker.build("docker:${env.BUILD_ID}", "-f ./docker/Dockerfile .")
-                customImage.inside('-u root') {
-                    sh 'touch /app/test.html && ls' 
-                }
+                sh """
+                docker run --name sample -d -u root docker-image:${env.BUILD_ID} 'touch cp $BUILD_DIR/src/pinetime-mcuboot-app-dfu-$PROJECT_VERSION.zip'
+                docker cp sample:$BUILD_DIR/src/pinetime-mcuboot-app-dfu-$PROJECT_VERSION.zip .
+                docker rm -f sample
+                """
             }
         }
 
