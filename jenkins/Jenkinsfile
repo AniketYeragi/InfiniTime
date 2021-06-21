@@ -21,7 +21,8 @@ pipeline {
             steps {
                 def customImage = docker.build("docker:${env.BUILD_ID}", "-f ./docker/Dockerfile .")
                 customImage.inside('-u root') {
-                sh 'touch /app/test.html && ls' 
+                    sh 'touch /app/test.html && ls' 
+                }
             }
         }
 
