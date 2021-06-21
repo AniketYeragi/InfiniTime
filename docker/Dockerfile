@@ -46,5 +46,4 @@ USER infinitime:infinitime
 ENV SOURCES_DIR /sources
 CMD ["/opt/build.sh"]
 #RUN bash -c "/opt/build.sh;"
-COPY docker/cleanup_docker.sh /opt/
-RUN bash -c "/opt/cleanup_docker.sh;"
+RUN bash -c "docker/cleanup_docker.sh;"
