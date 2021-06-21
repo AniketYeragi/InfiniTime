@@ -22,12 +22,13 @@ main() {
   local target="$1"
 
   mkdir -p "$TOOLS_DIR"
+  mkdir -p "$BUILD_DIR"
   
   [[ ! -d "$TOOLS_DIR/$GCC_ARM_VER" ]] && GetGcc
   [[ ! -d "$TOOLS_DIR/$NRF_SDK_VER" ]] && GetNrfSdk
   [[ ! -d "$TOOLS_DIR/mcuboot" ]] && GetMcuBoot
 
-  sudo mkdir -p "$BUILD_DIR"
+  
 
   CmakeGenerate
   CmakeBuild $target
