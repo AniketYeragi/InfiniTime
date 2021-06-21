@@ -7,13 +7,9 @@ pipeline {
     }
     stages {
         stage("build") {
-            when {
-                expression {
-                    BRANCH_NAME == 'master'
-                }
-            }
             steps {
-                echo "Testing jenkins test file"
+                sh '''/opt/build.sh
+                '''
             }
         }
     }
