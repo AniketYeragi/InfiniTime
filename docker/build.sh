@@ -24,12 +24,14 @@ main() {
   mkdir -p "$TOOLS_DIR"
   mkdir -p "$SOURCES_DIR"
   mkdir -p "$BUILD_DIR"
+
+  echo "Test echo1"
   
   [[ ! -d "$TOOLS_DIR/$GCC_ARM_VER" ]] && GetGcc
   [[ ! -d "$TOOLS_DIR/$NRF_SDK_VER" ]] && GetNrfSdk
   [[ ! -d "$TOOLS_DIR/mcuboot" ]] && GetMcuBoot
 
-  
+  echo "Test echo2"
 
   CmakeGenerate
   CmakeBuild $target

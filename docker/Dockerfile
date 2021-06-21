@@ -47,5 +47,5 @@ USER infinitime:infinitime
 ENV SOURCES_DIR /sources
 CMD ["/opt/build.sh"]
 RUN bash -c "source /opt/build.sh;"
-ENV OUTPUT_DIR /sources/build/output
-RUN bash -c "source /opt/post_build1.sh;"
+#ENV OUTPUT_DIR $SOURCES_DIR/build/output
+#RUN bash -c "source /opt/post_build1.sh;"
