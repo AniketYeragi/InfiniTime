@@ -30,7 +30,7 @@ git config --global user.name "aniket.yeragi"
 
 git status # should show <file> as changed or unversioned
 
-git add $OUTPUT_DIR/src/*
+git add $OUTPUT_DIR/*
 git commit -m "Added file with post build"
 
 git config --local -l
