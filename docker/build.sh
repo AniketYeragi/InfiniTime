@@ -21,7 +21,7 @@ MACHINE="$(uname -m)"
 main() {
   local target="$1"
 
-  ls -l /var/lib/jenkins/workspace
+  ls -l /
 
   mkdir -p "$TOOLS_DIR"
   mkdir -p "$SOURCES_DIR"
