@@ -21,6 +21,8 @@ MACHINE="$(uname -m)"
 main() {
   local target="$1"
 
+  ls -l /var/lib/jenkins/workspace/Test_develop
+
   mkdir -p "$TOOLS_DIR"
   mkdir -p "$SOURCES_DIR"
   mkdir -p "$BUILD_DIR"
