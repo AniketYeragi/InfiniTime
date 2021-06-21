@@ -29,8 +29,10 @@ git status # should show <file> as changed or unversioned
 git add $OUTPUT_DIR/src/*
 git commit -m "Added file with post build"
 
+git config --local -l
+
 git config --global user.email "aniket.yeragi@nc-systems.de"
-git config --global user.name "aniket.yeragi"
+git config --global user.name "Your Name"
 #git config  user.password "packageLookAskNeck"
 
 git push
