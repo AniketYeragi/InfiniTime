@@ -1,32 +1,29 @@
 pipeline {
 
-    agent {
-        dockerfile {
-        filename 'docker/Dockerfile'
-        }
-    }
+    agent any
     stages {
         stage("build") {
-            when {
-                expression {
-                    BRANCH_NAME == 'master'
+            agent {
+                dockerfile {
+                filename 'docker/Dockerfile'
+                reuseNode true
                 }
             }
             steps {
-                sh '''source /opt/build.sh
+                sh '''echo "built"
                 '''
             }
         }
-        stage("test copying files") {
-            steps {
-                sh """
-                .zip
-                docker run --name sample -d -u root docker-image:${env.BUILD_ID} 'touch cp /var/lib/jenkins/workspace/Test_develop/Pinetime_watch/build/src/pinetime-mcuboot-app-dfu-1.1.0.zip'
-                docker cp sample:/var/lib/jenkins/workspace/Test_develop/Pinetime_watch/build/src/pinetime-mcuboot-app-dfu-1.1.0 .
-                docker rm -f sample
-                """
-            }
-        }
+        // stage("test copying files") {
+        //     steps {
+        //         sh """
+        //         .zip
+        //         docker run --name sample -d -u root docker-image:${env.BUILD_ID} 'touch cp /var/lib/jenkins/workspace/Test_develop/Pinetime_watch/build/src/pinetime-mcuboot-app-dfu-1.1.0.zip'
+        //         docker cp sample:/var/lib/jenkins/workspace/Test_develop/Pinetime_watch/build/src/pinetime-mcuboot-app-dfu-1.1.0 .
+        //         docker rm -f sample
+        //         """
+        //     }
+        // }
 
     }
 }
