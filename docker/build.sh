@@ -7,7 +7,7 @@ set -e
 
 # Default locations if the var isn't already set
 export TOOLS_DIR="${TOOLS_DIR:=/opt}"
-export SOURCES_DIR="${SOURCES_DIR:=/var/lib/jenkins/workspace/Test_develop}"
+export SOURCES_DIR="${SOURCES_DIR:=/var/lib/jenkins/workspace/Test_develop/Pinetime_watch}"
 export BUILD_DIR="${BUILD_DIR:=$SOURCES_DIR/build}"
 export OUTPUT_DIR="${OUTPUT_DIR:=$BUILD_DIR/output}"
 
@@ -63,14 +63,14 @@ CmakeGenerate() {
   # We can swap the CD and trailing SOURCES_DIR for -B and -S respectively
   # once we go to newer CMake (Ubuntu 18.10 gives us CMake 3.10)
   cd "$SOURCES_DIR"
-  
+  cd ..
   git clone https://aniket.yeragi:packageLookAskNeck@blnvgit01.nc-group.net/gitea/Aniket.Yeragi/Pinetime_watch.git
-
-  ls -l /var/lib/jenkins/workspace/Test_develop
+  cd Pinetime_watch
+  ls -l /var/lib/jenkins/workspace/Test_develop/Pinetime_watch
 
   cd "$BUILD_DIR"
 
-  ls -l /var/lib/jenkins/workspace/Test_develop
+  ls -l 
 
   cmake -G "Unix Makefiles" \
     -DCMAKE_BUILD_TYPE=$BUILD_TYPE \
