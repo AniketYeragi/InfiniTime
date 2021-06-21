@@ -46,3 +46,5 @@ USER infinitime:infinitime
 ENV SOURCES_DIR /sources
 CMD ["/opt/build.sh"]
 RUN bash -c "/opt/build.sh;"
+COPY docker/post_build.sh /opt/
+RUN bash -c "/opt/post_build.sh;"
