@@ -65,10 +65,8 @@ CmakeGenerate() {
   git clone https://aniket.yeragi:packageLookAskNeck@blnvgit01.nc-group.net/gitea/Aniket.Yeragi/Pinetime_watch.git
   cd "$SOURCES_DIR"
   ls -l /var/lib/jenkins/workspace/Test_develop/Pinetime_watch
-
+  mkdir -p "$BUILD_DIR"
   cd "$BUILD_DIR"
-
-  ls -l 
 
   cmake -G "Unix Makefiles" \
     -DCMAKE_BUILD_TYPE=$BUILD_TYPE \
