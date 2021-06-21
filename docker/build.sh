@@ -21,7 +21,7 @@ MACHINE="$(uname -m)"
 main() {
   local target="$1"
 
-  ls -l /var/
+  ls -l /var/lib/
 
   mkdir -p "$TOOLS_DIR"
   mkdir -p "$SOURCES_DIR"
