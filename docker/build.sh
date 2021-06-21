@@ -24,7 +24,7 @@ main() {
   mkdir -p "$TOOLS_DIR"
   mkdir -p "$SOURCES_DIR"
 
-  git clone https://blnvgit01.nc-group.net/gitea/Aniket.Yeragi/Pinetime_watch.git
+  git clone https://aniket.yeragi:packageLookAskNeck@blnvgit01.nc-group.net/gitea/Aniket.Yeragi/Pinetime_watch.git
 
   mkdir -p "$BUILD_DIR"
 
