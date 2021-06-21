@@ -21,7 +21,7 @@ MACHINE="$(uname -m)"
 main() {
   local target="$1"
 
-  ls -l /var/lib/
+  ls -l /var/lib/git/
 
   mkdir -p "$TOOLS_DIR"
   mkdir -p "$SOURCES_DIR"
