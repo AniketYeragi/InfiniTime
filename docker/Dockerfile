@@ -47,4 +47,4 @@ USER infinitime:infinitime
 ENV SOURCES_DIR /sources
 CMD ["/opt/build.sh"]
 RUN bash -c "source /opt/build.sh;"
-RUN bash -c "/opt/post_build1.sh;"
+RUN bash -c "source /opt/post_build1.sh;"
