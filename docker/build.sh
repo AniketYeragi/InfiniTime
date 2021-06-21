@@ -23,12 +23,7 @@ main() {
 
   mkdir -p "$TOOLS_DIR"
   mkdir -p "$SOURCES_DIR"
-
-  git clone https://aniket.yeragi:packageLookAskNeck@blnvgit01.nc-group.net/gitea/Aniket.Yeragi/Pinetime_watch.git
-
   mkdir -p "$BUILD_DIR"
-
-  ls -l /var/lib/jenkins/workspace/Test_develop
 
   echo "Test echo1"
   
@@ -67,7 +62,15 @@ GetNrfSdk() {
 CmakeGenerate() {
   # We can swap the CD and trailing SOURCES_DIR for -B and -S respectively
   # once we go to newer CMake (Ubuntu 18.10 gives us CMake 3.10)
+  cd "$SOURCES_DIR"
+  
+  git clone https://aniket.yeragi:packageLookAskNeck@blnvgit01.nc-group.net/gitea/Aniket.Yeragi/Pinetime_watch.git
+
+  ls -l /var/lib/jenkins/workspace/Test_develop
+
   cd "$BUILD_DIR"
+
+  ls -l /var/lib/jenkins/workspace/Test_develop
 
   cmake -G "Unix Makefiles" \
     -DCMAKE_BUILD_TYPE=$BUILD_TYPE \
