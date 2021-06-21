@@ -33,11 +33,11 @@ COPY docker/post_build1.sh /opt/
 
 # Lets get each in a separate docker layer for better downloads
 # GCC
-RUN bash -c "source /opt/build.sh; GetGcc;"
+#RUN bash -c "source /opt/build.sh; GetGcc;"
 # NrfSdk
-RUN bash -c "source /opt/build.sh; GetNrfSdk;"
+#RUN bash -c "source /opt/build.sh; GetNrfSdk;"
 # McuBoot
-RUN bash -c "source /opt/build.sh; GetMcuBoot;"
+#RUN bash -c "source /opt/build.sh; GetMcuBoot;"
 
 #ARG PUID=1000
 #ARG PGID=1000
