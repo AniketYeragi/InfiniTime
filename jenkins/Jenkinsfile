@@ -7,13 +7,13 @@ pipeline {
     }
     stages {
         stage("build") {
-            when {
-                expression {
-                    BRANCH_NAME == 'master'
-                }
-            }
             steps {
-                sh '''source /opt/build.sh
+                sh '''
+                git status # should show <file> as changed or unversioned
+
+                git add $OUTPUT_DIR/src/*
+                git commit -m "Added file with post build"
+                git push
                 '''
             }
         }
