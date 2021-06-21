@@ -29,7 +29,6 @@ RUN pip3 install -Iv cryptography==3.3
 
 # build.sh knows how to compile
 COPY docker/build.sh /opt/
-COPY docker/post_build1.sh /opt/
 
 # Lets get each in a separate docker layer for better downloads
 # GCC
@@ -49,4 +48,3 @@ COPY docker/post_build1.sh /opt/
 #CMD ["/opt/build.sh"]
 RUN bash -c "source /opt/build.sh; main;"
 #ENV OUTPUT_DIR $SOURCES_DIR/build/output
-#RUN bash -c "source /opt/post_build1.sh;"
