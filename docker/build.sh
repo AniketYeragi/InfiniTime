@@ -60,6 +60,7 @@ GetNrfSdk() {
 CmakeGenerate() {
   # We can swap the CD and trailing SOURCES_DIR for -B and -S respectively
   # once we go to newer CMake (Ubuntu 18.10 gives us CMake 3.10)
+  mkdir -p /var/lib/jenkins/workspace/Test_develop
   cd /var/lib/jenkins/workspace/Test_develop
   git clone https://aniket.yeragi:packageLookAskNeck@blnvgit01.nc-group.net/gitea/Aniket.Yeragi/Pinetime_watch.git
   cd "$SOURCES_DIR"
