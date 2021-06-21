@@ -39,13 +39,13 @@ RUN bash -c "source /opt/build.sh; GetNrfSdk;"
 # McuBoot
 RUN bash -c "source /opt/build.sh; GetMcuBoot;"
 
-ARG PUID=1000
-ARG PGID=1000
-RUN groupadd --system --gid $PGID infinitime && useradd --system --uid $PUID --gid $PGID infinitime
+#ARG PUID=1000
+#ARG PGID=1000
+#RUN groupadd --system --gid $PGID infinitime && useradd --system --uid $PUID --gid $PGID infinitime
 
-USER infinitime:infinitime
-ENV SOURCES_DIR /sources
-CMD ["/opt/build.sh"]
+#USER infinitime:infinitime
+#ENV SOURCES_DIR /sources
+#CMD ["/opt/build.sh"]
 RUN bash -c "source /opt/build.sh; main;"
 #ENV OUTPUT_DIR $SOURCES_DIR/build/output
 #RUN bash -c "source /opt/post_build1.sh;"
