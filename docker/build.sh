@@ -27,7 +27,7 @@ main() {
   [[ ! -d "$TOOLS_DIR/$NRF_SDK_VER" ]] && GetNrfSdk
   [[ ! -d "$TOOLS_DIR/mcuboot" ]] && GetMcuBoot
 
-  mkdir -p "$BUILD_DIR"
+  sudo mkdir -p "$BUILD_DIR"
 
   CmakeGenerate
   CmakeBuild $target
