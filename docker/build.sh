@@ -22,21 +22,15 @@ main() {
   local target="$1"
 
   mkdir -p "$TOOLS_DIR"
-
-  echo "Test echo1"
   
   [[ ! -d "$TOOLS_DIR/$GCC_ARM_VER" ]] && GetGcc
   [[ ! -d "$TOOLS_DIR/$NRF_SDK_VER" ]] && GetNrfSdk
   [[ ! -d "$TOOLS_DIR/mcuboot" ]] && GetMcuBoot
 
-  echo "Test echo2"
-
   CmakeGenerate
   CmakeBuild $target
   BUILD_RESULT=$? 
-  echo "echoing build.sh"
   if [ "$DISABLE_POSTBUILD" != "true" -a "$BUILD_RESULT" == 0 ]; then
-    echo "starting post build"
     source "$BUILD_DIR/post_build.sh"
   fi
 }
